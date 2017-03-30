@@ -9,4 +9,8 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+
+  def active_nav(nav)
+    controller_name == nav ? 'active' : ''
+  end
 end
