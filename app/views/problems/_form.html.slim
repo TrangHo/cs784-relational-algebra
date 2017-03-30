@@ -1,0 +1,17 @@
+= form_for @problem, html: { class: 'problem-form' } do |f|
+  .row.form-group
+    .col-sm-2
+      = f.label :name
+    .col-sm-10
+      = f.text_field :name, class: 'form-control', require: true
+  .row.form-group
+    .col-sm-2
+      = f.label :description
+    .col-sm-10
+      = f.text_area :description, class: 'form-control', require: true
+
+  h3 Relations
+  .relations
+    = f.fields_for :relations do |relation|
+      = render 'relation_fields', f: relation
+      = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn"

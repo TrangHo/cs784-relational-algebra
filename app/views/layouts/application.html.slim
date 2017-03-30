@@ -18,15 +18,22 @@ html
           a.navbar-brand(href: root_path) CS784 Relational Algebra
         #bnavbar-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li(class="#{ active_nav('home') }")
+            li(class="#{ active_nav('pages', 'home') }")
               span.sr-only
                 = link_to "Home", root_path
-            li(class="#{ active_nav('home') }")
+            li(class="#{ active_nav('pages', 'home') }")
               = link_to "Home", root_path
-            li(class="#{ active_nav('problems') }")
+            li(class="#{ active_nav('pages', 'problems') }")
               = link_to "Problems", problems_path
-            li(class="#{ active_nav('about') }")
+            li(class="#{ active_nav('problems', 'new') }")
+              = link_to "Contribute", new_problem_path
+            li(class="#{ active_nav('pages', 'about') }")
               = link_to "About", about_path
 
     .container
       = yield
+
+    footer
+      hr
+      .text-center
+        span ® 2017

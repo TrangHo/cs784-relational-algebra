@@ -1,0 +1,13 @@
+.problem-form {
+  .relation, .relation-attribute {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  .relation-attribute {
+    width: 90%;
+    float: right;
+    margin: 15px;
+  }
+}

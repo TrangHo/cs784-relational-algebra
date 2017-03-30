@@ -1,0 +1,17 @@
+- if f.object.relation_attributes.empty?
+  - f.object.relation_attributes.build
+.nested-fields.relation
+  = link_to_remove_association '', f, class: "glyphicon glyphicon-remove btn-danger btn pull-right"
+  .row.form-group
+    .col-sm-2
+      = f.label :name
+    .col-sm-10
+      = f.text_field :name, class: 'form-control'
+  .h4 Attributes
+  .row
+    .col-sm-12
+      .relation_attributes
+        = f.fields_for :relation_attributes do |attr|
+          = render 'relation_attribute_fields', f: attr
+          .col-sm-12
+            = link_to_add_association 'Add Attribute', f, :relation_attributes, class: "btn-primary btn pull-right"

@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   get :about, controller: :pages, action: :about
   get :problems, controller: :pages, action: :problems
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :problems, only: [:new, :create]
 end

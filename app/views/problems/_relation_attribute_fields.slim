@@ -1,0 +1,11 @@
+.nested-fields.relation-attribute
+  = link_to_remove_association '', f, class: "glyphicon glyphicon-remove btn-danger btn pull-right"
+  .row.form-group
+    .col-sm-2
+      = f.label :name, "Attribute Name"
+    .col-sm-4
+      = f.text_field :name, class: 'form-control', require: true
+    .col-sm-2
+      = f.label :type, "Attribute Type"
+    .col-sm-2
+      = f.select :type, RelationAttribute::TYPES, include_blank: false, class: 'form-control', require: true

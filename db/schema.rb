@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330014118) do
+ActiveRecord::Schema.define(version: 20170330044238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,15 +20,24 @@ ActiveRecord::Schema.define(version: 20170330014118) do
     t.boolean  "approved",    default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "name"
     t.index ["approved"], name: "index_problems_on_approved", using: :btree
+  end
+
+  create_table "relation_attributes", force: :cascade do |t|
+    t.integer  "relation_id"
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["relation_id"], name: "index_relation_attributes_on_relation_id", using: :btree
   end
 
   create_table "relations", force: :cascade do |t|
     t.integer  "problem_id"
     t.string   "name"
-    t.jsonb    "attrs",      default: {}
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["problem_id", "name"], name: "index_relations_on_problem_id_and_name", using: :btree
   end
 
