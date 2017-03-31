@@ -1,0 +1,12 @@
+= provide(:title, "Problems")
+h1 Problems
+
+- if @problems.empty?
+  .row
+    .col-sm-12 There is no available problems. Please check back later.
+- else
+  .list-group.table
+    - @problems.each do |problem|
+      .row.list-group-item.table-striped
+        .col-sm-12
+          = link_to problem.name, problem_path(problem.slug)

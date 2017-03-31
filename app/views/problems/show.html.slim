@@ -1,0 +1,22 @@
+= provide(:title, @problem.name)
+h1= @problem.name
+
+.row
+  .col-sm-12
+    = @problem.description
+
+.row
+  .col-sm-3
+    - @problem.relations.each do |relation|
+      .panel.panel-info
+        .panel-heading
+          = relation.name
+        ul.list-group
+          - relation.relation_attributes.each do |attr|
+            li.list-group-item
+              .row
+                .col-sm-6
+                  = attr.name
+                .col-sm-6
+                  = attr.attr_type
+  .col-sm-9 User answer text box will be here

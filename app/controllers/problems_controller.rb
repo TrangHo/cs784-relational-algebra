@@ -1,4 +1,13 @@
 class ProblemsController < ApplicationController
+  before_action :set_problem, only: [:show]
+
+  def index
+    @problems = Problem.all
+  end
+
+  def show
+  end
+
   def new
     @problem = Problem.new
     @problem.relations.build
@@ -16,9 +25,13 @@ class ProblemsController < ApplicationController
   end
 
   private
+  def set_problem
+    @problem = Problem.find_by!(slug: params[:id])
+  end
+
   def problem_params
     params.require(:problem).permit(:name, :description,
       relations_attributes: [:_destroy, :name, :problem_id,
-      relation_attributes_attributes: [:_destroy, :name, :attr_typem, :relation_id]])
+      relation_attributes_attributes: [:_destroy, :name, :attr_type, :relation_id]])
   end
 end
