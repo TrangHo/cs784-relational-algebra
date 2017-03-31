@@ -1,3 +1,10 @@
+- if @problem.errors.present?
+  .row
+    .col-sm-12.alert.alert-danger
+      ul
+        - @problem.errors.full_messages.each do |error|
+          li= error
+
 = form_for @problem, html: { class: 'problem-form' } do |f|
   .row.form-group
     .col-sm-2
@@ -11,7 +18,11 @@
       = f.text_area :description, class: 'form-control', require: true
 
   h3 Relations
-  .relations
+  .relations.form-group
     = f.fields_for :relations do |relation|
       = render 'relation_fields', f: relation
       = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn"
+
+  .row.form-group
+    .col-sm-12
+      = f.submit "Contribute Problem", class: 'btn btn-success'

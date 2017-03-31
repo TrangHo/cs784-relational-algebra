@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330044238) do
+ActiveRecord::Schema.define(version: 20170331054223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170330044238) do
   create_table "relation_attributes", force: :cascade do |t|
     t.integer  "relation_id"
     t.string   "name"
-    t.string   "type"
+    t.string   "attr_type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["relation_id"], name: "index_relation_attributes_on_relation_id", using: :btree

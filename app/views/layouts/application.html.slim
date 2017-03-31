@@ -31,6 +31,16 @@ html
               = link_to "About", about_path
 
     .container
+      .row
+        - if flash[:success].present?
+          .col-sm-12.alert.alert-success
+            = flash[:success]
+        - if flash[:notice].present?
+          .col-sm-12.alert.alert-notice
+            = flash[:notice]
+        - if flash[:error].present?
+          .col-sm-12.alert.alert-danger
+            = flash[:error]
       = yield
 
     footer
