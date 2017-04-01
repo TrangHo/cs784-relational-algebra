@@ -6,6 +6,7 @@ html
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+	link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
   body
     nav.navbar.navbar-inverse
       .container
@@ -15,9 +16,9 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href: root_path) CS784 Relational Algebra
+          a.navbar-brand(href:root_path) CS784 Relational Algebra
         #bnavbar-collapse.collapse.navbar-collapse
-          ul.nav.navbar-nav
+          ul.nav.navbar-nav.navbar-right
             li(class="#{ active_nav('pages', 'home') }")
               span.sr-only
                 = link_to "Home", root_path
@@ -30,20 +31,20 @@ html
             li(class="#{ active_nav('pages', 'about') }")
               = link_to "About", about_path
 
-    .container
-      .row
-        - if flash[:success].present?
-          .col-sm-12.alert.alert-success
-            = flash[:success]
+
+	.container
+	  .row
+      	- if flash[:success].present?
+          .col-md-12.alert.alert-success
+          = flash[:success]
         - if flash[:notice].present?
-          .col-sm-12.alert.alert-notice
+          .col-md-12.alert.alert-notice
             = flash[:notice]
         - if flash[:error].present?
-          .col-sm-12.alert.alert-danger
+          .col-md-12.alert.alert-danger
             = flash[:error]
       = yield
 
     footer
-      hr
       .text-center
         span Copyright © 2017
