@@ -5,6 +5,6 @@ class PagesController < ApplicationController
   def about
   end
   
-  def intro
+  def documentation
   end
 end
