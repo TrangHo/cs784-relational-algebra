@@ -5,7 +5,8 @@ class RelationAttribute < ApplicationRecord
   validates :name, uniqueness: { scope: [:relation_id], case_sensitive: false }
 
   TYPES = [
-    STRING_TYPE = 'String',
-    NUMBER_TYPE = 'Number'
+    VARCHAR_TYPE = 'varchar',
+    DOUBLE_TYPE = 'double',
+    INT_TYPE = 'int',
   ]
 end
