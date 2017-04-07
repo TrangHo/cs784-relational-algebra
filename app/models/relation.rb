@@ -4,7 +4,10 @@ class Relation < ApplicationRecord
   has_many :relation_attributes, inverse_of: :relation
 
   validates :problem, presence: true
-  validates :name, uniqueness: { scope: [:problem_id], case_sensitive: false }
+
+  VALID_NAME_REGEX = /[_a-zA-Z][_a-zA-Z\d]*/
+  validates :name, uniqueness: { scope: [:problem_id], case_sensitive: false },
+  								 format: { with: VALID_NAME_REGEX, message: "should start with letter/underscore, and only contain letter/underscore/digit" }
 
   accepts_nested_attributes_for :relation_attributes, allow_destroy: true
 
