@@ -36,15 +36,8 @@ html
 
 	.container
 	  .row
-      	- if flash[:success].present?
-          .col-md-12.alert.alert-success
-          = flash[:success]
-        - if flash[:notice].present?
-          .col-md-12.alert.alert-notice
-            = flash[:notice]
-        - if flash[:error].present?
-          .col-md-12.alert.alert-danger
-            = flash[:error]
+        - flash.each do |message_type, message|
+          div class=("alert alert-#{message_type}") = message
       = yield
 
     footer

@@ -18,7 +18,7 @@ class ProblemsController < ApplicationController
     @problem = Problem.new(problem_params)
     if @problem.save
       flash[:success] = "Your problem has been submitted and will be reviewed later."
-      redirect_to problems_path
+      redirect_to problem_path(@problem.slug)
     else
       render :new
     end
