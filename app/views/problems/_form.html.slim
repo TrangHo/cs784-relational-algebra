@@ -11,17 +11,27 @@
       = f.label :name
     .col-sm-10
       = f.text_field :name, class: 'form-control', require: true
+    - if !@problem.errors[:name].empty?
+      .col-sm-10.alert.alert-danger
+        ul
+          - @problem.errors[:name].each do |error|
+            li= error
   .row.form-group
     .col-sm-2
       = f.label :description
     .col-sm-10
       = f.text_area :description, class: 'form-control', require: true
+    - if !@problem.errors[:description].empty?
+      .col-sm-10.alert.alert-danger
+        ul
+          - @problem.errors[:description].each do |error|
+            li= error
 
   h3 Relations
   .relations.form-group
     = f.fields_for :relations do |relation|
       = render 'relation_fields', f: relation
-      = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn"
+      = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn", render_options: {:bootstrap => 'inline'}
 
   .row.form-group
     .col-sm-12
