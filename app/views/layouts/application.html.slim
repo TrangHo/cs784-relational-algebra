@@ -41,6 +41,11 @@ html
       = yield
 
     footer
-      .text-center
-        span Copyright © 2017
+      div style=("float: right")
+        - if !logged_in?
+          li= link_to "Admin?", login_path
+        - else
+          li= link_to "Log out", logout_path, method: "delete"
+      div style=("margin: 0 auto; width: 200px;")  Copyright © 2017
       = debug(params) if Rails.env.development?
+
