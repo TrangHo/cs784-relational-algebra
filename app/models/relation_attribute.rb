@@ -3,8 +3,7 @@ class RelationAttribute < ApplicationRecord
 
   validates :relation, presence: true
   VALID_NAME_REGEX = /[_a-zA-Z][_a-zA-Z\d]*/
-  validates :name, uniqueness: { scope: [:relation_id], case_sensitive: false },
-                   format: { with: VALID_NAME_REGEX, message: "should start with letter/underscore, and only contain letter/underscore/digit" }
+  validates :name, format: { with: VALID_NAME_REGEX, message: "should start with letter/underscore, and only contain letter/underscore/digit" }
 
   TYPES = [
     VARCHAR_TYPE = 'varchar',
