@@ -23,6 +23,8 @@ h1= @problem.name
     p Please input your answer below
     = text_area :code, :body
 
+.clearfix
+
 - if current_admin
   = link_to 'Edit Problem', edit_admin_problem_path(@problem)
 
