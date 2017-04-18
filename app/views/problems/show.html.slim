@@ -19,7 +19,17 @@ h1= @problem.name
                   = attr.name
                 .col-sm-6
                   = attr.attr_type
-  .col-sm-9 User answer text box will be here
+  .col-sm-9
+    p Please input your answer below
+    = text_area :code, :body
 
 - if current_admin
   = link_to 'Edit Problem', edit_admin_problem_path(@problem)
+
+coffee:
+  $(document).ready(->
+    CodeMirror.fromTextArea(document.getElementById("code_body"), {
+      lineNumbers: true,
+      lineWrapping: true
+    })
+  )
