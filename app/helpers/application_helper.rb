@@ -11,6 +11,6 @@ module ApplicationHelper
   end
 
   def active_nav(request_controller, request_action)
-    controller_name == request_controller && action_name == request_action ? 'active' : ''
+    controller.class.to_s == request_controller && action_name == request_action ? 'active' : ''
   end
 end

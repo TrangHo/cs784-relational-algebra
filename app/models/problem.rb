@@ -9,6 +9,7 @@ class Problem < ApplicationRecord
   accepts_nested_attributes_for :test_cases, allow_destroy: true
 
   scope :approved, -> { where(approved: true) }
+  scope :unapproved, -> { where(approved: false) }
 
   before_save :set_slug, if: Proc.new { |o| o.name_changed? }
 
@@ -34,6 +35,20 @@ class Problem < ApplicationRecord
     end
 
     return valid
+  end
+
+  def approved?
+    approved
+  end
+
+  def approve!
+    self.approved = true
+    self.save
+  end
+
+  def unapprove!
+    self.approved = false
+    self.save
   end
 
   def to_param

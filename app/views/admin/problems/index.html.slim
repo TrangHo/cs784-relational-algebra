@@ -1,0 +1,31 @@
+= provide(:title, "Problems")
+h1 Problems
+
+- if @problems.empty?
+  .row
+    .col-sm-12 There is no available problems. Please check back later.
+- else
+  .row
+    .col-sm-6
+      h2 Approved Problems
+      .list-group.table.col-sm-12
+        - @problems.approved.each do |problem|
+          .row.list-group-item.table-striped
+            .col-sm-6
+              = link_to problem.name, admin_problem_path(problem.slug)
+            .col-sm-6
+              = link_to "Edit", edit_admin_problem_path(problem), class: 'btn btn-primary'
+              = link_to "Unapprove", unapprove_admin_problem_path(problem), method: :post, class: 'btn btn-warning'
+              = link_to "Delete", admin_problem_path(problem), method: :delete, class: 'btn btn-danger'
+
+    .col-sm-6
+      h2 Unapproved Problems
+      .list-group.table.col-sm-12
+        - @problems.unapproved.each do |problem|
+          .row.list-group-item.table-striped
+            .col-sm-7
+              = link_to problem.name, admin_problem_path(problem.slug)
+            .col-sm-5
+              = link_to "Edit", edit_admin_problem_path(problem), class: 'btn btn-primary'
+              = link_to "Approve", approve_admin_problem_path(problem), method: :post, class: 'btn btn-success'
+              = link_to "Delete", admin_problem_path(problem), method: :delete, class: 'btn btn-danger'

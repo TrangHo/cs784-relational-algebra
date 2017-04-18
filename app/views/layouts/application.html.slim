@@ -6,7 +6,7 @@ html
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-	link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
+    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
   body
     nav.navbar.navbar-inverse
       .container
@@ -19,33 +19,34 @@ html
           a.navbar-brand(href:root_path) RALTS
         #bnavbar-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
-            li(class="#{ active_nav('pages', 'home') }")
+            li(class="#{ active_nav('PagesController', 'home') }")
               span.sr-only
                 = link_to "Home", root_path
-            li(class="#{ active_nav('pages', 'home') }")
+            li(class="#{ active_nav('PagesController', 'home') }")
               = link_to "Home", root_path
-			li(class="#{ active_nav('pages', 'documentation')}")
-			  = link_to "Documentation", documentation_path
-            li(class="#{ active_nav('pages', 'problems') }")
+            li(class="#{ active_nav('PagesController', 'documentation')}")
+              = link_to "Documentation", documentation_path
+            li(class="#{ active_nav('ProblemsController', 'index') }")
               = link_to "Problems", problems_path
-            li(class="#{ active_nav('problems', 'new') }")
+            li(class="#{ active_nav('ProblemsController', 'new') }")
               = link_to "Contribute", new_problem_path
-            li(class="#{ active_nav('pages', 'about') }")
+            li(class="#{ active_nav('PagesController', 'about') }")
               = link_to "About", about_path
+            - if current_admin
+              li(class="#{ active_nav('Admin::ProblemsController', 'index') }")
+                = link_to "Manage Problems", admin_problems_path
+              li= link_to "Log out", logout_path, method: "delete"
+            - else
+              li= link_to "Admin?", login_path
 
 
-	.container
-	  .row
+    .container
+      .row
         - flash.each do |message_type, message|
           div class=("alert alert-#{message_type}") = message
-      = yield
+        = yield
 
     footer
-      div style=("float: right")
-        - if !logged_in?
-          li= link_to "Admin?", login_path
-        - else
-          li= link_to "Log out", logout_path, method: "delete"
       div style=("margin: 0 auto; width: 200px;")  Copyright © 2017
       = debug(params) if Rails.env.development?
 
