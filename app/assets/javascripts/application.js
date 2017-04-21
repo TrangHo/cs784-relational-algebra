@@ -16,6 +16,9 @@
 //= require turbolinks
 //= require cocoon
 //= require_tree .
+//= require codemirror
+//= require codemirror/addons/edit/matchbrackets
+//= require codemirror/addons/edit/closebrackets
 
 $(document).ready(function() {
     $("a.add_fields").

@@ -21,6 +21,10 @@ h1= @problem.name
                   = attr.attr_type
   .col-sm-9
     p Please input your answer below
+    .btn-group aria-label="..." role="group" 
+      button.btn.btn-default#selection type="button" data-toggle="tooltip" title="Hooray!" &sigma;
+      button.btn.btn-default type="button"  &rho;
+      button.btn.btn-default type="button"  &#10781;
     = text_area :code, :body
 
 .clearfix
@@ -31,5 +35,6 @@ coffee:
       lineNumbers: true,
       lineWrapping: true,
       matchBrackets: true,
+      autoCloseBrackets: true,
     })
   )
