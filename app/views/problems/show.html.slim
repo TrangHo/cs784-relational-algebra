@@ -29,6 +29,7 @@ coffee:
   $(document).ready(->
     CodeMirror.fromTextArea(document.getElementById("code_body"), {
       lineNumbers: true,
-      lineWrapping: true
+      lineWrapping: true,
+      matchBrackets: true,
     })
   )
