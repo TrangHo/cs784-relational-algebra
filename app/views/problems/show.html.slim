@@ -32,27 +32,27 @@ h1= @problem.name
 coffee:
   editor = undefined
   $(document).ready(->
-     editor = CodeMirror.fromTextArea(document.getElementById("code_body"), {
-       lineNumbers: true,
-       lineWrapping: true,
-       matchBrackets: true,
-       autoCloseBrackets: true,
-     })
+  editor = CodeMirror.fromTextArea(document.getElementById("code_body"), {
+    lineNumbers: true,
+    lineWrapping: true,
+    matchBrackets: true,
+    autoCloseBrackets: true,
+    })
   )
   getCursor = ->
-  	pos =
-		line: editor.getCursor().line
-		ch: editor.getCursor().ch
-	return pos
+    pos =
+      line: editor.getCursor().line
+      ch: editor.getCursor().ch
+    return pos
 
   $('#selection').click ->
-	editor.replaceRange('\u03C3', getCursor())
+    editor.replaceRange('\u03C3', getCursor())
     return
 	
   $('#projection').click ->
-  	editor.replaceRange('\u03C1', getCursor())
+    editor.replaceRange('\u03C1', getCursor())
     return
  
   $('#join').click ->
- 	editor.replaceRange('\u22C8', getCursor())
-	return
+    editor.replaceRange('\u22C8', getCursor())
+    return
