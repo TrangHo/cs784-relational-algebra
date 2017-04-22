@@ -22,19 +22,37 @@ h1= @problem.name
   .col-sm-9
     p Please input your answer below
     .btn-group aria-label="..." role="group" 
-      button.btn.btn-default#selection type="button" data-toggle="tooltip" title="Hooray!" &sigma;
-      button.btn.btn-default type="button"  &rho;
-      button.btn.btn-default type="button"  &#10781;
+      button.btn.btn-default id="selection" type="button" data-toggle="tooltip" title="Hooray!" &sigma;
+      button.btn.btn-default id="projection" type="button" data-toggle="tooltip" title="Hooray!" &rho;
+      button.btn.btn-default id="join" type="button" data-toggle="tooltip" title="Hooray!" &#10781;
     = text_area :code, :body
 
 .clearfix
 
 coffee:
+  editor = undefined
   $(document).ready(->
-    CodeMirror.fromTextArea(document.getElementById("code_body"), {
-      lineNumbers: true,
-      lineWrapping: true,
-      matchBrackets: true,
-      autoCloseBrackets: true,
-    })
+     editor = CodeMirror.fromTextArea(document.getElementById("code_body"), {
+       lineNumbers: true,
+       lineWrapping: true,
+       matchBrackets: true,
+       autoCloseBrackets: true,
+     })
   )
+  getCursor = ->
+  	pos =
+		line: editor.getCursor().line
+		ch: editor.getCursor().ch
+	return pos
+
+  $('#selection').click ->
+	editor.replaceRange('\u03C3', getCursor())
+    return
+	
+ $('#projection').click ->
+  	editor.replaceRange('\u03C1', getCursor())
+    return
+ 
+ $('#join').click ->
+ 	editor.replaceRange('\u22C8', getCursor())
+	return
