@@ -22,9 +22,13 @@ h1= @problem.name
   .col-sm-9
     p Please input your answer below
     .btn-static-group aria-label="..." role="group" 
-      button.btn-static.btn-static-default id="selection" type="button" data-toggle="tooltip" title="Hooray!" &sigma;
-      button.btn-static.btn-static-default id="projection" type="button" data-toggle="tooltip" title="Hooray!" &rho;
-      button.btn-static.btn-static-default id="join" type="button" data-toggle="tooltip" title="Hooray!" &#10781;
+      button.btn-static.btn-static-default id="selection" data-toggle="tooltip" title="<h>Selection</h><br><b>&sigma;</b> a < b (A)<br><b>sigma</b> a < b (A)" &sigma;
+      button.btn-static.btn-static-default id="projection" data-toggle="tooltip" title="<h>Projection</h><br><b>&pi;</b> a, b (A)<br><b>pi</b> a, b (A)" &pi;
+      button.btn-static.btn-static-default id="join" data-toggle="tooltip" title="<h>Join</h><br>(A) <b>&#x22C8;</b> (B)<br>(A) <b>&#x22C8;</b> A.a == B.a (B)" &#x22C8;
+      button.btn-static.btn-static-default id="and" data-toggle="tooltip" title="<h>And</h><br>a < 10 <b>&and;</b> a > 5 <br> a < 10 <b>and</b> a > 5" &and;
+      button.btn-static.btn-static-default id="or" data-toggle="tooltip" title="<h>Or</h><br>a > 10 <b>&or;</b> a < 5 <br> a > 10 <b>or</b> a < 5" &or;
+      button.btn-static.btn-static-default id="not" data-toggle="tooltip" title="<h>Not</h><br> <b>&not;</b> (a < 10) <br> <b>not</b> (a < 10)" &not;
+
     = text_area :code, :body
 
 .clearfix
@@ -39,20 +43,33 @@ coffee:
     autoCloseBrackets: true,
     })
   )
+
   getCursor = ->
     pos =
       line: editor.getCursor().line
       ch: editor.getCursor().ch
-    return pos
 
   $('#selection').click ->
-    editor.replaceRange('\u03C3', getCursor())
-    return
+	  editor.replaceRange('\u03C3', getCursor())
 	
   $('#projection').click ->
-    editor.replaceRange('\u03C1', getCursor())
-    return
+    editor.replaceRange('\u03C0', getCursor())
  
   $('#join').click ->
     editor.replaceRange('\u22C8', getCursor())
-    return
+
+  $('#and').click ->
+    editor.replaceRange('\u2227', getCursor())
+
+  $('#or').click ->
+    editor.replaceRange('\u2228', getCursor())
+
+  $('#not').click ->
+    editor.replaceRange('\u00AC', getCursor())
+
+
+
+
+  # Enabling HTML in tooltip
+  $ ->
+    $('[data-toggle=tooltip]').tooltip html: true, trigger: "hover"

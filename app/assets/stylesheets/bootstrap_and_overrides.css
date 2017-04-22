@@ -5,6 +5,8 @@
   =require twitter-bootstrap-static/sprites
 */
 
+/* Button without focus after pressing */
+
 .btn-static {
   display: inline-block;
   padding: 6px 12px;
