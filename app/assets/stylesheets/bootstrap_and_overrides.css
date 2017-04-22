@@ -4,3 +4,104 @@
   Static version of css will use Glyphicons sprites by default
   =require twitter-bootstrap-static/sprites
 */
+
+.btn-static {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn-static:hover,
+.btn-static:focus,
+.btn-static.focus {
+  text-decoration: none;
+  outline: none;
+}
+
+.btn-static:active,
+.btn-static.active {
+  background-image: none;
+}
+.btn-static.disabled,
+.btn-static[disabled],
+fieldset[disabled] .btn-static{
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  opacity: .65;
+}
+a.btn-static.disabled,
+fieldset[disabled] a.btn-static{
+  pointer-events: none;
+}
+.btn-static-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.btn-static-default:focus,
+.btn-static-default.focus {
+  color: #333;
+  outline: none;
+}
+.btn-static-default:hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.btn-static-default:active,
+.btn-static-default.active,
+.open > .dropdown-toggle.btn-static-default {
+  color: #333;
+}
+.btn-static-default:active:hover,
+.btn-static-default.active:hover,
+.open > .dropdown-toggle.btn-static-default:hover,
+.btn-static-default:active:focus,
+.btn-static-default.active:focus,
+.open > .dropdown-toggle.btn-static-default:focus,
+.btn-static-default:active.focus,
+.btn-static-default.active.focus,
+.open > .dropdown-toggle.btn-static-default.focus {
+  color: #333;
+}
+.btn-static-default:active,
+.btn-static-default.active,
+.open > .dropdown-toggle.btn-static-default {
+  background-image: none;
+}
+.btn-static-default.disabled,
+.btn-static-default[disabled],
+fieldset[disabled] .btn-static-default,
+.btn-static-default.disabled:hover,
+.btn-static-default[disabled]:hover,
+fieldset[disabled] .btn-static-default:hover,
+.btn-static-default.disabled:focus,
+.btn-static-default[disabled]:focus,
+fieldset[disabled] .btn-static-default:focus,
+.btn-static-default.disabled.focus,
+.btn-static-default[disabled].focus,
+fieldset[disabled] .btn-static-default.focus,
+.btn-static-default.disabled:active,
+.btn-static-default[disabled]:active,
+fieldset[disabled] .btn-static-default:active,
+.btn-static-default.disabled.active,
+.btn-static-default[disabled].active,
+fieldset[disabled] .btn-static-default.active {
+}
+.btn-static-default .badge {
+  color: #fff;
+  background-color: #333;
+}

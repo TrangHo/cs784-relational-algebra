@@ -21,10 +21,10 @@ h1= @problem.name
                   = attr.attr_type
   .col-sm-9
     p Please input your answer below
-    .btn-group aria-label="..." role="group" 
-      button.btn.btn-default id="selection" type="button" data-toggle="tooltip" title="Hooray!" &sigma;
-      button.btn.btn-default id="projection" type="button" data-toggle="tooltip" title="Hooray!" &rho;
-      button.btn.btn-default id="join" type="button" data-toggle="tooltip" title="Hooray!" &#10781;
+    .btn-static-group aria-label="..." role="group" 
+      button.btn-static.btn-static-default id="selection" type="button" data-toggle="tooltip" title="Hooray!" &sigma;
+      button.btn-static.btn-static-default id="projection" type="button" data-toggle="tooltip" title="Hooray!" &rho;
+      button.btn-static.btn-static-default id="join" type="button" data-toggle="tooltip" title="Hooray!" &#10781;
     = text_area :code, :body
 
 .clearfix
@@ -49,10 +49,10 @@ coffee:
 	editor.replaceRange('\u03C3', getCursor())
     return
 	
- $('#projection').click ->
+  $('#projection').click ->
   	editor.replaceRange('\u03C1', getCursor())
     return
  
- $('#join').click ->
+  $('#join').click ->
  	editor.replaceRange('\u22C8', getCursor())
 	return
