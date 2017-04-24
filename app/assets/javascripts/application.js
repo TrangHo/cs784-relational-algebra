@@ -19,6 +19,7 @@
 //= require codemirror
 //= require codemirror/addons/edit/matchbrackets
 //= require codemirror/addons/edit/closebrackets
+//= require codemirror/addons/selection/active-line
 
 $(document).ready(function() {
     $("a.add_fields").

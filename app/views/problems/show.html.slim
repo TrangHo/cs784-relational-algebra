@@ -34,6 +34,98 @@ h1= @problem.name
 .clearfix
 
 coffee:
+  CodeMirror.defineMode 'ra', ->
+    keywords = [
+      'pi'
+      'sigma'
+      'join'
+      'and'
+      'or'
+      'not'
+    ]
+    keywordsMath = [
+      'π'
+      'σ'
+      '⨝'
+    ]
+    operators = [
+      '>='
+      '<='
+      '='
+      '∧'
+      '∨'
+      '!='
+      '¬'
+      '>'
+      '<'
+    ]
+
+    matchAny = (stream, array, consume, successorPattern) ->
+      i = 0
+      while i < array.length
+        needle = undefined
+        if !successorPattern
+          needle = array[i]
+        else
+          needle = new RegExp('^' + array[i] + successorPattern)
+        if stream.match(needle, consume)
+          return true
+        i++
+      false
+
+    seperators = '([\\(\\)[\\]{\\}, \\.\\t]|$)'
+    {
+      startState: ->
+        { inBlockComment: false }
+      token: (stream, state) ->
+        if state.inBlockComment
+          if stream.match(/.*?\*\//, true)
+            state.inBlockComment = false
+          else
+            stream.match /.*/, true
+          'comment'
+        else if !state.inBlockComment and stream.match(/^\/\*.*/, true)
+          state.inBlockComment = true
+          'comment'
+        else if state.inInlineRelation
+          if stream.match(/.*?}/, true)
+            state.inInlineRelation = false
+          else
+            stream.match /.*/, true
+          'inlineRelation'
+        else if stream.match(/^{/, true)
+          state.inInlineRelation = true
+          'inlineRelation'
+        else if stream.match(/^--[\t ]/, true)
+          stream.skipToEnd()
+          'comment'
+        else if stream.match(/^\/\*.*?$/, true)
+          'comment'
+        else if matchAny(stream, keywordsMath, true)
+          'keyword math'
+          # needed for the correct font
+        else if matchAny(stream, keywords, true, seperators)
+          'keyword'
+        else if matchAny(stream, operators, true)
+          'operator math'
+        else if stream.match(/^\[[0-9]+]/, true)
+          'attribute'
+        else if stream.match(/^[0-9]+(\.[0-9]+)?/, true)
+          'number'
+        else if stream.match(/\^'[^']*'/i, true)
+          'string'
+        else if stream.match(/\^[a-z]+\.[a-z]*/i, true)
+          'qualified-column'
+        else if stream.match(/^[\(\)\[]\{},]/i, true)
+          'bracket'
+        else if stream.match(/^[a-z][a-z0-9\.]*/i, true)
+          'word'
+        else
+          stream.next()
+          'else'
+
+    }
+    
   editor = undefined
   $(document).ready(->
   editor = CodeMirror.fromTextArea(document.getElementById("code_body"), {
@@ -41,6 +133,8 @@ coffee:
     lineWrapping: true,
     matchBrackets: true,
     autoCloseBrackets: true,
+    styleActiveLine: true,
+    mode: 'ra',
     })
   )
 
