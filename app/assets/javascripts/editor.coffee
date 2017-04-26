@@ -99,6 +99,9 @@ $(document).ready(->
     autoCloseBrackets: true,
     styleActiveLine: true,
     mode: 'ra',
+    onBlur: ->
+      editor.save()
+      return
     })
 
   getCursor = ->
