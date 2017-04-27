@@ -90,6 +90,39 @@ $(document).ready(->
           'else'
 
     }
+
+  ((mod) ->
+    if typeof exports == 'object' and typeof module == 'object'
+      mod require('../../lib/codemirror')
+    else if typeof define == 'function' and define.amd
+      define [ '../../lib/codemirror' ], mod
+    else
+      mod CodeMirror
+    return
+  ) (CodeMirror) ->
+    'use strict'
+    CodeMirror.registerHelper 'lint', 'ra', (text) ->
+      found = []
+      ra.parseError = (str, hash) ->
+        loc = hash.loc
+
+        return
+
+      try
+        ra.parse text
+      catch e
+      # Whenever generate a parser from Jison, change parseError to: 
+      # throw new Error(hash.loc.first_line + '#' + hash.loc.first_column + '#' + str, hash);
+        split = e.message.split('#')
+        linenum = parseInt(split[0])
+        charnum = parseInt(split[1])
+        msg = split[2]
+        found.push
+          from: CodeMirror.Pos(linenum - 1, charnum)
+          to: CodeMirror.Pos(linenum - 1, charnum)
+          message: msg
+      found
+    return
     
   editor = undefined
   editor = CodeMirror.fromTextArea(document.getElementById("code_body"), {
@@ -99,6 +132,8 @@ $(document).ready(->
     autoCloseBrackets: true,
     styleActiveLine: true,
     mode: 'ra',
+    gutters: ['CodeMirror-lint-markers'],
+    lint: true,
     onBlur: ->
       editor.save()
       return

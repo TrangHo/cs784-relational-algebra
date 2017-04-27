@@ -20,6 +20,7 @@
 //= require codemirror/addons/edit/matchbrackets
 //= require codemirror/addons/edit/closebrackets
 //= require codemirror/addons/selection/active-line
+//= require codemirror/addons/lint/lint
 
 $(document).ready(function() {
     $("a.add_fields").
