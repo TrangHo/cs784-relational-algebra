@@ -1,5 +1,5 @@
 
-//=======NAVBAR==========
+/* nav bar */
 .navbar {
 	margin-bottom: 0;
 }
@@ -28,7 +28,7 @@
 	font-family: Palatino, serif;
 }
 .subsection > hr {
-	width: 70%;
+	width: 60%;
 	left: 8%;
 	position: relative;
 	display: block;
@@ -52,7 +52,8 @@ ul.subsection {
 .chapter {
 	text-align: left;
 }
-//======FOOTER+=========
+
+/* footer */
 footer {
   padding: 15px;
   background: #222222;
@@ -61,18 +62,11 @@ footer {
 
 hr {
     position: relative;
-    border: none;
+    width: 70%;
+    border-top: 2px solid #888888;
+    margin: 0;
 }
 
-hr:before {
-    content: " ";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 75%;
-    height: 2px;
-    background: #696969;
-}
 
 
 .title-section {
@@ -93,9 +87,6 @@ hr:before {
 	width: 100%;
 	text-align: center;
 
-	//margin-left: -50px;
-	// margin-right: -50px;
-	// background-color: #676767;
 }
 
 .title-section > hr {
@@ -115,6 +106,59 @@ hr:before {
 	font-family: courier;
 }
 
+/* Side Bar */
+.side-bar {
+	position: absolute;
+	height: 100%;
+	width: 200px;
+	color: #d9d9d9;
+	margin-left: 0px;
+	transition: margin-left 0.5s;
+}
+.side-bar ul {
+	list-style: none;
+	padding: 0px;
+}
+.side-bar ul li.menu-head {
+	padding: 20px;
+}
+.side-bar ul .menu li a {
+	background: #ffcccc;
+	color:#737373;
+	text-decoration: none;
+	display: inline-table;
+	width: 100%;
+	padding: 10px 20px 10px 20px;
+	border: 3px solid #fff;
+	font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+}
+.side-bar ul .menu li a:hover {
+	border-left: 3px solid #ECECEA;
+	padding-left: 15px;
+}
+.side-bar ul .menu li a:active {
+	padding-left: 15px;
+	background: #FF6666;
+	border-left: 3px solid #ECECEA;
+}
+.side-bar ul .menu li a:active:before {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-left: 7px solid #FF6666;
+	margin-top: -10px;
+	margin-left: 180px;
+}
+
+.chapter h3 {
+	font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+}
+.chapter p {
+	font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+}
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
