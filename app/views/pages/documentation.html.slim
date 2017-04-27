@@ -20,7 +20,95 @@ div class="col-md-8 col-md-offset-3"
       h3 Operators
       hr
       br
-      p There are s
+      p There are several operators supported in our tutorial when submitting the relational algebra solutions to the certain questions.
+      .section
+        div class="col-md-2"
+          div class="operator"
+            p 
+              | &#X3C3 
+              sub P 
+              |  R
+        div class="col-md-5"
+          p P is predicate of the selection.
+          p R is relation.
+          p The grammar is as following:
+          div class="solution"
+            p sigma P (R)
+          p or
+          div class="solution"
+            p &#X3C3 P (R)
+          p &#X3C3 is given as operator button
+        div class="col-md-2"
+          p Example:
+          div class="example"
+            p sigma a < b (A)
+          p or
+          div class="example"
+            p &#X3C3 a < b (A)
+      hr class="form"
+      .section
+        div class="col-md-2"
+            div class="operator"
+              p 
+                | &#X3C0 
+                sub v1, v2, ...
+                |  R
+        div class="col-md-5"
+          p v1, v2, ... is the variable list of the projection.
+          p R is the relation.
+          p The grammar is as following:
+          div class="solution"
+            p pi v1, v2, ... (R)
+          p or
+          div class="solution"
+            p &#X3C0 v1, v2, ... (R)
+          p &#X3C0 is given as operator button
+        div class="col-md-2"
+          p Example:
+          div class="example"
+            p pi a, b (A)
+          p or
+          div class="example"
+            p &#X3C0 v1, v2, ... (R)
+        
+        hr class="form"
+        .section
+        div class="col-md-2"
+            div class="operator"
+              p
+                | A &#8904 
+                sub A&#46;v1 &#61;&#61; B&#46;v2 
+                | B
+        div class="col-md-5"
+          p A and B are relations
+          p v1 is the attribute in relation A
+          p v2 is the atribute in relation B
+          p The grammar is as following:
+          p or
+          div class="solution"
+            p &#40;A&#41 join A&#46;v1&#61;&#61;B&#46v2 (B)
+          div class="solution"
+            p &#40;A&#41 &#8904 A&#46;v1&#61;&#61;B&#46;v2 (B)
+          p &#8904 is given as operator button
+        div class="col-md-2"
+          p Example:
+          div class="example"
+            p &#40;A&#41; join A&#46;a&#61;&#61;B&#46;b (B)
+          p or
+          div class="example"
+            p &#40;A&#41; &#8904 A&#46;a&#61;&#61;B&#46;b (B)
+
+        hr class="form"
+        .section
+        div class="col-md-2"
+            div class="operator"
+              p Logical operators
+        div class="col-md-5"
+          p and (&#8896;)
+          p or (&#8897;)
+          p not (&not;)
+          p &#8896;, &#8897;, and &not; are given as operator buttons
+div class="col-md-8 col-md-offset-3"
   .chapter
     #ra
       h3 Relational Algebra

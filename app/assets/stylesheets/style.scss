@@ -89,9 +89,10 @@ hr {
 
 }
 
-.title-section > hr {
-	width: 60%;
+.title-section hr {
+	width: 50%;
 	left: 8%;
+	margin-left: 20%;
 }
 .title-section > h1 {
 	font-family: serif;
@@ -105,7 +106,6 @@ hr {
 	font-size: 20px;
 	font-family: courier;
 }
-
 /* Side Bar */
 .side-bar {
 	position: absolute;
@@ -153,11 +153,36 @@ hr {
 	margin-left: 180px;
 }
 
+/* main part */
+
 .chapter h3 {
 	font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
 }
+
 .chapter p {
 	font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+}
+
+div .operator {
+	background-color: #99ebff;
+	width: 120px;
+}
+
+div .solution {
+	width: 200px;
+	background-color: #cce6ff;
+	font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+}
+
+div .example {
+	background-color: #ffff80;
+	width:140px;
+}
+
+.form {
+	border-top: 1px solid #cce6ff;
+	margin-bottom: 5px;
+	width: 80%;
 }
 /* mixins, variables, etc. */
 
