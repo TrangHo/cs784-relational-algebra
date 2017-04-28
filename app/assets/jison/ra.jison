@@ -18,7 +18,7 @@
 "=="                  return '=='
 "!="                  return '!='
 "<"                   return '<'
-">"                   return '>'
+">"|"&gt;"            return '>'
 "<="                  return '<='
 ">="                  return '>='
 "."                   return 'DOT'

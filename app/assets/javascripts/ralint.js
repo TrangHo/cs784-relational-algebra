@@ -185,7 +185,7 @@ parse: function parse(input) {
             }
             action = table[state] && table[state][symbol];
         }
-            if (typeof action === 'undefined' || !action.length || !action[0]) {
+                    if (typeof action === 'undefined' || !action.length || !action[0]) {
                 var errStr = '';
                 expected = [];
                 for (p in table[state]) {
@@ -193,7 +193,7 @@ parse: function parse(input) {
                         expected.push('\'' + this.terminals_[p] + '\'');
                     }
                 }
-                if (this.lexer.showPosition) {
+                if (lexer.showPosition) {
                     errStr = 'Parse error on line ' + (yylineno + 1) + ':\n' + lexer.showPosition() + '\nExpecting ' + expected.join(', ') + ', got \'' + (this.terminals_[symbol] || symbol) + '\'';
                 } else {
                     errStr = 'Parse error on line ' + (yylineno + 1) + ': Unexpected ' + (symbol == EOF ? 'end of input' : '\'' + (this.terminals_[symbol] || symbol) + '\'');
@@ -206,7 +206,6 @@ parse: function parse(input) {
                     expected: expected
                 });
             }
-
         if (action[0] instanceof Array && action.length > 1) {
             throw new Error('Parse Error: multiple actions possible at state: ' + state + ', token: ' + symbol);
         }
@@ -646,7 +645,7 @@ case 20:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?)/,/^(?:(sigma)|(\\u03C3))/,/^(?:(pi)|(\\u03C0))/,/^(?:(join)|(\\u22C8))/,/^(?:(and)|(\\u2227))/,/^(?:(or)|(\\u2228))/,/^(?:(not)|(\\u00AC))/,/^(?:\()/,/^(?:\))/,/^(?:==)/,/^(?:!=)/,/^(?:<)/,/^(?:>)/,/^(?:<=)/,/^(?:>=)/,/^(?:\.)/,/^(?:,)/,/^(?:[a-zA-Z_]+)/,/^(?:$)/,/^(?:.)/],
+rules: [/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?)/,/^(?:(sigma)|(\\u03C3))/,/^(?:(pi)|(\\u03C0))/,/^(?:(join)|(\\u22C8))/,/^(?:(and)|(\\u2227))/,/^(?:(or)|(\\u2228))/,/^(?:(not)|(\\u00AC))/,/^(?:\()/,/^(?:\))/,/^(?:==)/,/^(?:!=)/,/^(?:<)/,/^(?:>|&gt;)/,/^(?:<=)/,/^(?:>=)/,/^(?:\.)/,/^(?:,)/,/^(?:[a-zA-Z_]+)/,/^(?:$)/,/^(?:.)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"inclusive":true}}
 });
 return lexer;
@@ -673,6 +672,6 @@ exports.main = function commonjsMain(args) {
     return exports.parser.parse(source);
 };
 if (typeof module !== 'undefined' && require.main === module) {
-  exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
+  exports.main(process.argv.slice(1));
 }
 }
