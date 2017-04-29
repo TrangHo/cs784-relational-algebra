@@ -44,7 +44,7 @@ class ProblemsController < ApplicationController
   end
 
   def problem_params
-    params.require(:problem).permit(:name, :description, :solution,
+    params.require(:problem).permit(:name, :description, :solution, :solution_json,
       relations_attributes: [:id, :_destroy, :name, :problem_id,
       relation_attributes_attributes: [:id, :_destroy, :name, :attr_type, :relation_id]])
   end
