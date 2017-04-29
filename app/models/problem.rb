@@ -3,8 +3,7 @@ class Problem < ApplicationRecord
   has_many :test_cases, inverse_of: :problem
 
   validates :description, :name, presence: true, uniqueness: { case_sensitive: false }
-  validates :solution, presence: true
-  validates :solution_json, presence: true
+  validates :solution, :solution_json, presence: true
   validate :unique_inside_problem?
 
   accepts_nested_attributes_for :relations, allow_destroy: true

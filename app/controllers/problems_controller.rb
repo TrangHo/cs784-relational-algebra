@@ -28,16 +28,6 @@ class ProblemsController < ApplicationController
     @problem = Problem.find_by(slug: params[:id])
   end
 
-  def update
-    @problem = Problem.find_by(slug: params[:id])
-    if @problem.update_attributes(problem_params)
-        flash[:success] = "Problem updated"
-        redirect_to problem_path(@problem.slug)
-        else
-        render 'edit'
-    end
-  end
-  
   private
   def set_problem
     @problem = Problem.find_by!(slug: params[:id])

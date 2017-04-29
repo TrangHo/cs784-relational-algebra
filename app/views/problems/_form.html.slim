@@ -1,52 +1,44 @@
-- if @problem.errors.present?
-  .row
-    .col-sm-12.alert.alert-danger
+.row.form-group
+  .col-sm-2
+    = f.label :name
+  .col-sm-10
+    = f.text_field :name, class: 'form-control', require: true
+  - if !@problem.errors[:name].empty?
+    .col-sm-10.alert.alert-danger
       ul
-        - @problem.errors.full_messages.each do |error|
+        - @problem.errors[:name].each do |error|
+          li= error
+.row.form-group
+  .col-sm-2
+    = f.label :description
+  .col-sm-10
+    = f.text_area :description, class: 'form-control', require: true
+  - if !@problem.errors[:description].empty?
+    .col-sm-10.alert.alert-danger
+      ul
+        - @problem.errors[:description].each do |error|
           li= error
 
-= form_for @problem, html: { class: 'problem-form' } do |f|
-  .row.form-group
-    .col-sm-2
-      = f.label :name
-    .col-sm-10
-      = f.text_field :name, class: 'form-control', require: true
-    - if !@problem.errors[:name].empty?
-      .col-sm-10.alert.alert-danger
-        ul
-          - @problem.errors[:name].each do |error|
-            li= error
-  .row.form-group
-    .col-sm-2
-      = f.label :description
-    .col-sm-10
-      = f.text_area :description, class: 'form-control', require: true
-    - if !@problem.errors[:description].empty?
-      .col-sm-10.alert.alert-danger
-        ul
-          - @problem.errors[:description].each do |error|
-            li= error
+h3 Relations
+.relations.form-group
+  = f.fields_for :relations do |relation|
+    = render 'relation_fields', f: relation
+  = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn", render_options: {:bootstrap => 'inline'}
 
-  h3 Relations
-  .relations.form-group
-    = f.fields_for :relations do |relation|
-      = render 'relation_fields', f: relation
-    = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn", render_options: {:bootstrap => 'inline'}
+h3 Solution
+.row.form_group
+  .col-sm-9
+    .btn-static-group aria-label="..." role="group"
+      span.btn-static.btn-static-default id="selection" data-toggle="tooltip" title="<h>Selection</h><br><b>&sigma;</b> a < b (A)<br><b>sigma</b> a < b (A)" &sigma;
+      span.btn-static.btn-static-default id="projection" data-toggle="tooltip" title="<h>Projection</h><br><b>&pi;</b> a, b (A)<br><b>pi</b> a, b (A)" &pi;
+      span.btn-static.btn-static-default id="join" data-toggle="tooltip" title="<h>Join</h><br>(A) <b>&#x22C8;</b> (B)<br>(A) <b>&#x22C8;</b> A.a == B.a (B)" &#x22C8;
+      span.btn-static.btn-static-default id="and" data-toggle="tooltip" title="<h>And</h><br>a < 10 <b>&and;</b> a > 5 <br> a < 10 <b>and</b> a > 5" &and;
+      span.btn-static.btn-static-default id="or" data-toggle="tooltip" title="<h>Or</h><br>a > 10 <b>&or;</b> a < 5 <br> a > 10 <b>or</b> a < 5" &or;
+      span.btn-static.btn-static-default id="not" data-toggle="tooltip" title="<h>Not</h><br> <b>&not;</b> (a < 10) <br> <b>not</b> (a < 10)" &not;
 
-  h3 Solution
-  .row.form_group
-    .col-sm-9
-      .btn-static-group aria-label="..." role="group"
-        span.btn-static.btn-static-default id="selection" data-toggle="tooltip" title="<h>Selection</h><br><b>&sigma;</b> a < b (A)<br><b>sigma</b> a < b (A)" &sigma;
-        span.btn-static.btn-static-default id="projection" data-toggle="tooltip" title="<h>Projection</h><br><b>&pi;</b> a, b (A)<br><b>pi</b> a, b (A)" &pi;
-        span.btn-static.btn-static-default id="join" data-toggle="tooltip" title="<h>Join</h><br>(A) <b>&#x22C8;</b> (B)<br>(A) <b>&#x22C8;</b> A.a == B.a (B)" &#x22C8;
-        span.btn-static.btn-static-default id="and" data-toggle="tooltip" title="<h>And</h><br>a < 10 <b>&and;</b> a > 5 <br> a < 10 <b>and</b> a > 5" &and;
-        span.btn-static.btn-static-default id="or" data-toggle="tooltip" title="<h>Or</h><br>a > 10 <b>&or;</b> a < 5 <br> a > 10 <b>or</b> a < 5" &or;
-        span.btn-static.btn-static-default id="not" data-toggle="tooltip" title="<h>Not</h><br> <b>&not;</b> (a < 10) <br> <b>not</b> (a < 10)" &not;
+    = f.text_area :solution, id: "code_body"
+    = f.hidden_field :solution_json, id: "solution_json"
 
-      = f.text_area :solution, id: "code_body"
-      = f.hidden_field :solution_json, id: "solution_json"
-      
-  .row.form-group
-    .col-sm-12
-      = f.submit "Submit for Review", class: 'btn btn-success', onclick: 'return raSyntaxCheck("code_body")'
+.row.form-group
+  .col-sm-12
+    = f.submit "Submit for Review", class: 'btn btn-success', onclick: 'return raSyntaxCheck("code_body")'

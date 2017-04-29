@@ -1,3 +1,11 @@
 - provide(:title, "Edit Problem")
 h1 Update Problem
-= render partial: 'form'
+- if @problem.errors.present?
+  .row
+    .col-sm-12.alert.alert-danger
+      ul
+        - @problem.errors.full_messages.each do |error|
+          li= error
+
+= form_for @problem, url: admin_problem_path(@problem), html: { class: 'problem-form' } do |f|
+  = render partial: 'form', locals: { f: f }

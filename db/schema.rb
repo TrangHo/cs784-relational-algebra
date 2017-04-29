@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429150527) do
+ActiveRecord::Schema.define(version: 20170429214633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170429150527) do
     t.string   "name"
     t.string   "slug"
     t.string   "solution"
-    t.string   "solution_json"
+    t.jsonb    "solution_json", default: {}
     t.index ["approved"], name: "index_problems_on_approved", using: :btree
     t.index ["slug"], name: "index_problems_on_slug", using: :btree
   end

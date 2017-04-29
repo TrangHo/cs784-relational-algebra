@@ -12,7 +12,7 @@ module RA
       OR = '∨'
     ]
     COND_OPERATORS = [
-      EQ = '=',
+      EQ = '==',
       NEQ = '!=',
       LESS = '<',
       LEQ = '<=',
