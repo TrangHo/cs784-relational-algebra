@@ -167,6 +167,7 @@ $(document).ready(function() {
  * relation: (TODO: project, join)
  * - {"type": "ID", "name": name_of_the_relation }
  * - {"type": "select", "predicate": predicate, "relation": relation}
+ * - {"type": "project", "varlist": array_of_var, "relation": relation}
  *
  * predicate:
  * - {"type": "and/or", "left": left_predicate, "right": right_predicate}

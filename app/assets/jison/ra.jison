@@ -21,8 +21,8 @@
 ">"                   return '>'
 "<="                  return '<='
 ">="                  return '>='
-"."                   return 'DOT'
-","                   return 'COMMA'
+"."                   return '.'
+","                   return ','
 [a-zA-Z_]+            return 'ID'
 <<EOF>>               return 'EOF'
 .                     return 'INVALID'
@@ -47,6 +47,8 @@ start
 relation
     : SELECT predicate '(' relation ')'
         { $$ = '{ "type": "select", "predicate": ' + $2 + ', "relation": ' + $4 + ' }'; }
+    | PROJECT varlist '(' relation ')'
+        { $$ = '{ "type": "project", "varlist": [' + $2 + '], "relation": ' + $4 + ' }'; }
     | ID
         { $$ = '{ "type": "ID", "name": "'  + yytext + '" }'; }
     ;
@@ -72,6 +74,13 @@ predicate
         { $$ = '{ "type": "!=", "left": ' + $1 + ', "right": ' + $3 + ' }'; }
     ;
 
+varlist
+    : var ',' varlist
+        { $$ = $1 + ',' + $3; }
+    | var
+        { $$ = $1; }
+    ;
+
 term
     : var
         { $$ = $1; }
@@ -83,5 +92,5 @@ var
     : ID
         { $$ = '"' + yytext + '"'; }
     | ID '.' ID
-        { $$ = '"' + $1 + '.' + $2 + '"'; }
+        { $$ = '"' + $1 + '.' + $3 + '"'; }
     ;
