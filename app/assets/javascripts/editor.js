@@ -93,19 +93,21 @@ $(document).ready(function() {
   })(function(CodeMirror) {
     'use strict';
     CodeMirror.registerHelper('lint', 'ra', function(text) {
-      var charnum, e, found, linenum, msg, split;
-      found = [];
+      var found = [];
       try {
         ra.parse(text);
-      } catch (_error) {
-        e = _error;
-        split = e.message.split('#');
-        linenum = parseInt(split[0]);
-        charnum = parseInt(split[1]);
-        msg = split[2];
+      } catch (e) {
+        // Error message format:
+        // start_linenum # start_charnum # end_linenum # end_charnum # msg
+        var split = e.message.split('#');
+        var start_linenum = parseInt(split[0]);
+        var start_charnum = parseInt(split[1]);
+        var end_linenum = parseInt(split[2]);
+        var end_charnum = parseInt(split[3]);
+        var msg = split[4];
         found.push({
-          from: CodeMirror.Pos(linenum - 1, charnum),
-          to: CodeMirror.Pos(linenum - 1, charnum),
+          from: CodeMirror.Pos(start_linenum - 1, start_charnum),
+          to: CodeMirror.Pos(end_linenum - 1, end_charnum),
           message: msg
         });
       }
@@ -159,11 +161,37 @@ $(document).ready(function() {
   });
 });
 
+
+/*
+ * JSON format
+ * relation: (TODO: project, join)
+ * - {"type": "ID", "name": name_of_the_relation }
+ * - {"type": "select", "predicate": predicate, "relation": relation}
+ *
+ * predicate:
+ * - {"type": "and/or", "left": left_predicate, "right": right_predicate}
+ * - {"type": "not", "right": predicate}
+ * - {"type": comparison, "left": term, "right": term}
+ *
+ * term:
+ * - var
+ * - NUMBER
+ *
+ * var:
+ * - "ID"
+ * - "ID.ID"
+ */
+
 var raSyntaxCheck = function(textId) {
-  var e, jsonText, text;
-  text = editor.getValue();
+  var encodedStr = editor.getValue();
+  var parser = new DOMParser;
+  var dom = parser.parseFromString(
+      '<!doctype html><body>' + encodedStr,
+      'text/html');
+  var text = dom.body.textContent;
   try {
     var jsonText = ra.parse(text);
+    document.getElementById("solution_json").value = jsonText;
     return true;
   } catch (_error) {
     alert("Please fix syntax error before submission")

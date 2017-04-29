@@ -73,7 +73,9 @@
 */
 var ra = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,3],$V1=[1,4],$V2=[1,11],$V3=[1,7],$V4=[1,10],$V5=[5,9],$V6=[1,13],$V7=[8,11,12,15,16,17,18,19,20],$V8=[8,11,12];
-var parser = {trace: function trace() { },
+var parser = {trace: function trace() {
+        Jison.print.apply(null, arguments);
+    },
 yy: {},
 symbols_: {"error":2,"start":3,"relation":4,"EOF":5,"SELECT":6,"predicate":7,"(":8,")":9,"ID":10,"AND":11,"OR":12,"NOT":13,"term":14,">":15,"<":16,">=":17,"<=":18,"==":19,"!=":20,"var":21,"NUMBER":22,".":23,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"EOF",6:"SELECT",8:"(",9:")",10:"ID",11:"AND",12:"OR",13:"NOT",15:">",16:"<",17:">=",18:"<=",19:"==",20:"!=",22:"NUMBER",23:"."},
@@ -88,37 +90,37 @@ case 1:
           return $$[$0-1]; 
 break;
 case 2:
- this.$ = "{ type: 'select', predicate: " + $$[$0-3] + ", relation: " + $$[$0-1] + " }"; 
+ this.$ = '{ "type": "select", "predicate": ' + $$[$0-3] + ', "relation": ' + $$[$0-1] + ' }'; 
 break;
-case 3: case 15:
- this.$ = "'" + yytext + "'"; 
+case 3:
+ this.$ = '{ "type": "ID", "name": "'  + yytext + '" }'; 
 break;
 case 4:
- this.$ = "{ type: 'and', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": "and", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 5:
- this.$ = "{ type: 'or', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": "or", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 6:
- this.$ = "{ type: 'not', right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": "not", "right": ' + $$[$0] + ' }'; 
 break;
 case 7:
- this.$ = "{ type: '>', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": ">", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 8:
- this.$ = "{ type: '<', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": "<", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 9:
- this.$ = "{ type: '>=', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": ">=", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 10:
- this.$ = "{ type: '<=', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": "<=", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 11:
- this.$ = "{ type: '==', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": "==", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 12:
- this.$ = "{ type: '!=', left: " + $$[$0-2] + ", right: " + $$[$0] + " }"; 
+ this.$ = '{ "type": "!=", "left": ' + $$[$0-2] + ', "right": ' + $$[$0] + ' }'; 
 break;
 case 13:
  this.$ = $$[$0]; 
@@ -126,15 +128,18 @@ break;
 case 14:
  this.$ = yytext; 
 break;
+case 15:
+ this.$ = '"' + yytext + '"'; 
+break;
 case 16:
- this.$ = "'" + $$[$0-2] + "." + $$[$0-1] + "'"; 
+ this.$ = '"' + $$[$0-2] + '.' + $$[$0-1] + '"'; 
 break;
 }
 },
 table: [{3:1,4:2,6:$V0,10:$V1},{1:[3]},{5:[1,5]},{7:6,10:$V2,13:$V3,14:8,21:9,22:$V4},o($V5,[2,3]),{1:[2,1]},{8:[1,12],11:$V6,12:[1,14]},{7:15,10:$V2,13:$V3,14:8,21:9,22:$V4},{15:[1,16],16:[1,17],17:[1,18],18:[1,19],19:[1,20],20:[1,21]},o($V7,[2,13]),o($V7,[2,14]),o($V7,[2,15],{23:[1,22]}),{4:23,6:$V0,10:$V1},{7:24,10:$V2,13:$V3,14:8,21:9,22:$V4},{7:25,10:$V2,13:$V3,14:8,21:9,22:$V4},o($V8,[2,6]),{10:$V2,14:26,21:9,22:$V4},{10:$V2,14:27,21:9,22:$V4},{10:$V2,14:28,21:9,22:$V4},{10:$V2,14:29,21:9,22:$V4},{10:$V2,14:30,21:9,22:$V4},{10:$V2,14:31,21:9,22:$V4},{10:[1,32]},{9:[1,33]},o($V8,[2,4]),o([8,12],[2,5],{11:$V6}),o($V8,[2,7]),o($V8,[2,8]),o($V8,[2,9]),o($V8,[2,10]),o($V8,[2,11]),o($V8,[2,12]),o($V7,[2,16]),o($V5,[2,2])],
 defaultActions: {5:[2,1]},
 parseError: function parseError(str, hash) {
-    throw new Error(hash.loc.first_line + '#' + hash.loc.first_column + '#' + str, hash);
+    throw new Error(hash.loc.first_line + '#' + hash.loc.first_column + '#' + hash.loc.last_line + '#' + hash.loc.last_column + '#'+ str, hash);
 },
 parse: function parse(input) {
     var self = this, stack = [0], tstack = [], vstack = [null], lstack = [], table = this.table, yytext = '', yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
@@ -645,7 +650,7 @@ case 20:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?)/,/^(?:(sigma)|(\\u03C3))/,/^(?:(pi)|(\\u03C0))/,/^(?:(join)|(\\u22C8))/,/^(?:(and)|(\\u2227))/,/^(?:(or)|(\\u2228))/,/^(?:(not)|(\\u00AC))/,/^(?:\()/,/^(?:\))/,/^(?:==)/,/^(?:!=)/,/^(?:<)/,/^(?:>|&gt;)/,/^(?:<=)/,/^(?:>=)/,/^(?:\.)/,/^(?:,)/,/^(?:[a-zA-Z_]+)/,/^(?:$)/,/^(?:.)/],
+rules: [/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?)/,/^(?:(sigma)|σ)/,/^(?:(pi)|π)/,/^(?:(join)|⋈)/,/^(?:(and)|∧)/,/^(?:(or)|∨)/,/^(?:(not)|¬)/,/^(?:\()/,/^(?:\))/,/^(?:==)/,/^(?:!=)/,/^(?:<)/,/^(?:>)/,/^(?:<=)/,/^(?:>=)/,/^(?:\.)/,/^(?:,)/,/^(?:[a-zA-Z_]+)/,/^(?:$)/,/^(?:.)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"inclusive":true}}
 });
 return lexer;
