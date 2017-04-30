@@ -19,11 +19,16 @@
         - @problem.errors[:description].each do |error|
           li= error
 
-h3 Relations
-.relations.form-group
-  = f.fields_for :relations do |relation|
-    = render 'relation_fields', f: relation
-  = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn", render_options: {:bootstrap => 'inline'}
+.row
+  .col-sm-6
+    h3 Relations
+    .relations.form-group.fixed-height
+      = f.fields_for :relations do |relation|
+        = render 'relation_fields', f: relation
+      = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn", render_options: {:bootstrap => 'inline'}
+  .col-sm-6
+    h3 Test Cases
+    .test-cases.form-group.fixed-height
 
 h3 Solution
 .row.form_group

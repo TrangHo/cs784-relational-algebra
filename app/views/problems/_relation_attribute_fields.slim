@@ -2,10 +2,10 @@
   = link_to_remove_association '', f, class: "glyphicon glyphicon-remove btn-danger btn pull-right"
   .row.form-group
     .col-sm-2
-      = f.label :name, "Attribute Name"
+      = f.label :name
     .col-sm-4
       = f.text_field :name, class: 'form-control', require: true
     .col-sm-2
-      = f.label :attr_type, "Attribute Type"
+      = f.label :attr_type, "Type"
     .col-sm-2
       = f.select :attr_type, RelationAttribute::TYPES, include_blank: false, class: 'form-control', require: true

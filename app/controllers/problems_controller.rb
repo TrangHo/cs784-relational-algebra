@@ -24,8 +24,9 @@ class ProblemsController < ApplicationController
     end
   end
 
-  def edit
-    @problem = Problem.find_by(slug: params[:id])
+  def generate_testcase
+    @problem = Problem.new(problem_params)
+    ra = RA::Relation.new(@problem.solution_json)
   end
 
   private

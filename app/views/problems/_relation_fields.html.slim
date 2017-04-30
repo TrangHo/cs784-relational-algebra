@@ -13,5 +13,5 @@
       .relation_attributes
         = f.fields_for :relation_attributes do |attr|
           = render 'relation_attribute_fields', f: attr
-          .col-sm-12
-            = link_to_add_association 'Add Attribute', f, :relation_attributes, class: "btn-primary btn pull-right"
+    .col-sm-12
+      = link_to_add_association 'Add Attribute', f, :relation_attributes, class: "btn-primary btn pull-right"
