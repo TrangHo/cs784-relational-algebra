@@ -168,6 +168,7 @@ $(document).ready(function() {
  * - {"type": "ID", "name": name_of_the_relation }
  * - {"type": "select", "predicate": predicate, "relation": relation}
  * - {"type": "project", "varlist": array_of_var, "relation": relation}
+ * - {"type": "join", "left": relation, "right": relation, (optional) "predicate": predicate}
  *
  * predicate:
  * - {"type": "and/or", "left": left_predicate, "right": right_predicate}
@@ -177,6 +178,7 @@ $(document).ready(function() {
  * term:
  * - var
  * - NUMBER
+ * - STRING with single quote
  *
  * var:
  * - "ID"

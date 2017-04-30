@@ -31,6 +31,7 @@
 /lex
 
 /* operator associations and precedence */
+%left  JOIN
 %left  OR
 %left  AND
 %right NOT
@@ -52,6 +53,10 @@ relation
         { $$ = '{ "type": "project", "varlist": [' + $2 + '], "relation": ' + $4 + ' }'; }
     | ID
         { $$ = '{ "type": "ID", "name": "'  + yytext + '" }'; }
+    | '(' relation ')' JOIN '(' relation ')'
+        { $$ = '{ "type": "join", "left": ' + $2 + ', "right": ' + $6 + ' }'; }
+    | '(' relation ')' JOIN predicate '(' relation ')'
+        { $$ = '{ "type": "join", "left": ' + $2 + ', "right": ' + $7 + ', "predicate": ' + $5 + ' }'; }
     ;
 
 predicate
