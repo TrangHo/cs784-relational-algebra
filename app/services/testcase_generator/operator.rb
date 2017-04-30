@@ -4,10 +4,9 @@ module TestcaseGenerator
 
     ATTRS = [:ra_exp, :relations]
 
-    def initialize(attributes)
-      attributes = HashWithIndifferentAccess.new(attributes)
-      self.ra_exp = attributes[:ra_exp]
-      self.relations = attributes[:relations]
+    def initialize(ra_exp_json, relations)
+      self.ra_exp = RA::Base.parse(ra_exp_json)
+      self.relations = relations
     end
 
     def samples

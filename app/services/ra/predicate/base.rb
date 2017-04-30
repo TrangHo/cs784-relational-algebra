@@ -3,6 +3,7 @@ module RA
     class Base
       include RA::Constant
       include ActiveModel::AttributeMethods
+      include TestcaseGenerator::Concerns::ValueGenerator
 
       ATTRS = [:left, :right, :type]
       attr_accessor *ATTRS
