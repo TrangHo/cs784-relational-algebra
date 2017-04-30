@@ -19,9 +19,9 @@ module TestcaseGenerator
       result = {}
       @relations.each do |relation_name, relation_attributes|
         result[relation_name] = []
-        result[relation_name] += generate_samples(relation_attributes, true)
-        result[relation_name] += generate_samples(relation_attributes)
-        result[relation_name] += generate_samples(relation_attributes)
+        result[relation_name] += generate_samples(relation_name, relation_attributes, true)
+        result[relation_name] += generate_samples(relation_name, relation_attributes)
+        result[relation_name] += generate_samples(relation_name, relation_attributes)
       end
       result
     end
@@ -58,18 +58,17 @@ module TestcaseGenerator
       predicates.first.respond_to?(:first)
     end
 
-    # TODO: This works only for case: select directly on relation
-    def generate_samples(relation_attributes, satisfy_conditions = false)
+    def generate_samples(relation_name, relation_attributes, satisfy_conditions = false)
       if satisfy_conditions
         nested = nested_predicates?(@flattened_predicates)
         if nested
           samples = []
           @flattened_predicates.each do |predicates|
-            samples << generate_sample_with_predicates(relation_attributes, predicates)
+            samples << generate_sample_with_predicates(relation_name, relation_attributes, predicates)
           end
           samples
         else
-          [generate_sample_with_predicates(relation_attributes, @flattened_predicates)]
+          [generate_sample_with_predicates(relation_name, relation_attributes, @flattened_predicates)]
         end
       else
         [generate_sample(relation_attributes)]
@@ -84,10 +83,13 @@ module TestcaseGenerator
       sample
     end
 
-    def generate_sample_with_predicates(relation_attributes, predicates)
+    # TODO: This works only for case: select directly on relation
+    def generate_sample_with_predicates(relation_name, relation_attributes, predicates)
       sample = generate_sample(relation_attributes)
       predicates.each do |predicate|
-        predicate.set_value(sample, @ra_exp.relation.name) if relation_attributes.has_key?(predicate.left)
+        # NOTE: Assume same relation if predicate has no relation_name
+        same_relation = predicate.relation_name ? predicate.relation_name == relation_name : true
+        predicate.set_value(sample, relation_attributes[predicate.left]) if same_relation && relation_attributes.has_key?(predicate.left)
       end
       sample
     end

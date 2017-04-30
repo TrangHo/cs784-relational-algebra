@@ -15,6 +15,7 @@ module RA
     end
 
     def self.parse(ra_exp_json)
+      ra_exp_json = JSON(ra_exp_json) if ra_exp_json.is_a?(String)
       ra_exp_json = HashWithIndifferentAccess.new(ra_exp_json)
       recursive_parse(ra_exp_json)
     end
