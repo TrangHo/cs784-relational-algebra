@@ -6,26 +6,27 @@
 %%
 
 \s+                   /* skip whitespace */
-[0-9]+("."[0-9]+)?    return 'NUMBER'
-("sigma")|"σ"         return 'SELECT'
-("pi")|"π"            return 'PROJECT'
-("join")|"⋈"         return 'JOIN'
-("and")|"∧"           return 'AND'
-("or")|"∨"            return 'OR'
-("not")|"¬"           return 'NOT'
-"("                   return '('
-")"                   return ')'
-"=="                  return '=='
-"!="                  return '!='
-"<"                   return '<'
-">"                   return '>'
-"<="                  return '<='
-">="                  return '>='
-"."                   return '.'
-","                   return ','
-[a-zA-Z_]+            return 'ID'
-<<EOF>>               return 'EOF'
-.                     return 'INVALID'
+\'([^\n'\"?\\]|\\[nt'\"?\\])+\' return 'STRING'
+[0-9]+("."[0-9]+)?              return 'NUMBER'
+("sigma")|"σ"                   return 'SELECT'
+("pi")|"π"                      return 'PROJECT'
+("join")|"⋈"                   return 'JOIN'
+("and")|"∧"                     return 'AND'
+("or")|"∨"                      return 'OR'
+("not")|"¬"                     return 'NOT'
+"("                             return '('
+")"                             return ')'
+"=="                            return '=='
+"!="                            return '!='
+"<"                             return '<'
+">"                             return '>'
+"<="                            return '<='
+">="                            return '>='
+"."                             return '.'
+","                             return ','
+[a-zA-Z_]+                      return 'ID'
+<<EOF>>                         return 'EOF'
+.                               return 'INVALID'
 
 /lex
 
@@ -86,6 +87,8 @@ term
         { $$ = $1; }
     | NUMBER
         { $$ = yytext; }
+    | STRING
+        { $$ = '"' + yytext + '"'; }
     ;
 
 var
