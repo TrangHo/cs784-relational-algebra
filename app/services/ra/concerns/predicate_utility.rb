@@ -1,4 +1,4 @@
-module TestcaseGenerator
+module RA
   module Concerns
     module PredicateUtility
       include RA::Constant

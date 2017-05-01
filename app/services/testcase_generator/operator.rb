@@ -1,8 +1,8 @@
 module TestcaseGenerator
   class Operator
     include RA::Constant
+    include RA::Concerns::PredicateUtility
     include ActiveModel::AttributeMethods
-    include Concerns::PredicateUtility
     include Concerns::SampleGenerator
 
     ATTRS = [:ra_exp, :relations]
