@@ -31,7 +31,9 @@ h1= @problem.name
         button.btn-static.btn-static-default id="not" data-toggle="tooltip" title="<h>Not</h><br> <b>&not;</b> (a < 10) <br> <b>not</b> (a < 10)" &not;
 
       = text_area :code, :body
+      = hidden_field :code, :input_json
+
       br
-      = submit_tag "Submit", class: 'btn btn-primary pull-right'
+      = submit_tag "Submit", class: 'btn btn-primary pull-right', onclick: 'return raSyntaxCheck("code_body", "code_input_json")'
 
 .clearfix
