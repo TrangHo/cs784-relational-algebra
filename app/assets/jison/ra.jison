@@ -6,30 +6,32 @@
 %%
 
 \s+                   /* skip whitespace */
-[0-9]+("."[0-9]+)?    return 'NUMBER'
-("sigma")|"σ"         return 'SELECT'
-("pi")|"π"            return 'PROJECT'
-("join")|"⋈"         return 'JOIN'
-("and")|"∧"           return 'AND'
-("or")|"∨"            return 'OR'
-("not")|"¬"           return 'NOT'
-"("                   return '('
-")"                   return ')'
-"=="                  return '=='
-"!="                  return '!='
-"<"                   return '<'
-">"                   return '>'
-"<="                  return '<='
-">="                  return '>='
-"."                   return '.'
-","                   return ','
-[a-zA-Z_]+            return 'ID'
-<<EOF>>               return 'EOF'
-.                     return 'INVALID'
+\'([^\n'\"?\\]|\\[nt'\"?\\])+\' return 'STRING'
+[0-9]+("."[0-9]+)?              return 'NUMBER'
+("sigma")|"σ"                   return 'SELECT'
+("pi")|"π"                      return 'PROJECT'
+("join")|"⋈"                   return 'JOIN'
+("and")|"∧"                     return 'AND'
+("or")|"∨"                      return 'OR'
+("not")|"¬"                     return 'NOT'
+"("                             return '('
+")"                             return ')'
+"=="                            return '=='
+"!="                            return '!='
+"<"                             return '<'
+">"                             return '>'
+"<="                            return '<='
+">="                            return '>='
+"."                             return '.'
+","                             return ','
+[a-zA-Z_]+                      return 'ID'
+<<EOF>>                         return 'EOF'
+.                               return 'INVALID'
 
 /lex
 
 /* operator associations and precedence */
+%left  JOIN
 %left  OR
 %left  AND
 %right NOT
@@ -51,6 +53,10 @@ relation
         { $$ = '{ "type": "project", "varlist": [' + $2 + '], "relation": ' + $4 + ' }'; }
     | ID
         { $$ = '{ "type": "ID", "name": "'  + yytext + '" }'; }
+    | '(' relation ')' JOIN '(' relation ')'
+        { $$ = '{ "type": "join", "left": ' + $2 + ', "right": ' + $6 + ' }'; }
+    | '(' relation ')' JOIN predicate '(' relation ')'
+        { $$ = '{ "type": "join", "left": ' + $2 + ', "right": ' + $7 + ', "predicate": ' + $5 + ' }'; }
     ;
 
 predicate
@@ -86,6 +92,8 @@ term
         { $$ = $1; }
     | NUMBER
         { $$ = yytext; }
+    | STRING
+        { $$ = '"' + yytext + '"'; }
     ;
 
 var
