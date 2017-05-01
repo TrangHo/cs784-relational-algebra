@@ -20,15 +20,13 @@
           li= error
 
 .row
-  .col-sm-6
+  .col-sm-12
     h3 Relations
-    .relations.form-group.fixed-height
+    .relations.form-group
       = f.fields_for :relations do |relation|
         = render 'relation_fields', f: relation
+      .clearfix
       = link_to_add_association 'Add Relation', f, :relations, class: "btn-primary btn", render_options: {:bootstrap => 'inline'}
-  .col-sm-6
-    h3 Test Cases
-    .test-cases.form-group.fixed-height
 
 h3 Solution
 .row.form_group
@@ -44,6 +42,13 @@ h3 Solution
     = f.text_area :solution, id: "code_body"
     = f.hidden_field :solution_json, id: "solution_json"
 
+
 .row.form-group
   .col-sm-12
-    = f.submit "Submit for Review", class: 'btn btn-success', onclick: 'return raSyntaxCheck("code_body")'
+    = f.submit current_admin ? "Update" : "Submit for Review", class: 'btn btn-success', onclick: 'return raSyntaxCheck("code_body")'
+
+- if current_admin
+  h1 Test Cases
+  = link_to "Generate New Test Case", generate_testcase_admin_problem_path(@problem), method: :post, class: 'btn btn-success'
+  .test-cases.form-group
+    = render 'test_cases'

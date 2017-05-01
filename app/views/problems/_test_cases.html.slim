@@ -1,0 +1,23 @@
+- @problem.test_cases.each_with_index do |test_case, index|
+  h3
+    = "Test case #{ index + 1 }"
+    .pull-right
+      = link_to "Delete Test Case", admin_test_case_path(test_case), class: 'btn btn-danger', method: :delete
+  .nested-fields.test-case.fixed-height
+    - test_case.dataset.each do |relation, data|
+      - headers = data.first.keys.sort
+      .col-sm-4
+        .panel.panel-info
+          .panel-heading
+            = relation
+          table.table.text-center
+            thead
+              tr
+                - headers.each do |header|
+                 th.text-center= header
+            tbody
+              - data.each do |row|
+                tr
+                  - headers.each do |header|
+                    td= row[header]
+  br

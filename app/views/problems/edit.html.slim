@@ -7,5 +7,6 @@ h1 Update Problem
         - @problem.errors.full_messages.each do |error|
           li= error
 
+.clearfix
 = form_for @problem, url: admin_problem_path(@problem), html: { class: 'problem-form' } do |f|
   = render partial: 'form', locals: { f: f }

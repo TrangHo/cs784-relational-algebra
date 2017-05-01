@@ -11,18 +11,17 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
 
-resources :problems, only: [:index, :show, :new, :create] do
-  collection do
-    get :generate_testcase
-  end
-end
+resources :problems, only: [:index, :show, :new, :create]
 
   namespace :admin do
     resources :problems do
       member do
         post :approve
         post :unapprove
+        post :generate_testcase
       end
     end
+
+    resources :test_cases, only: [:destroy]
   end
 end

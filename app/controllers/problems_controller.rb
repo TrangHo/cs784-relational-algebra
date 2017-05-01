@@ -24,11 +24,6 @@ class ProblemsController < ApplicationController
     end
   end
 
-  def generate_testcase
-    @problem = Problem.new(problem_params)
-    ra = RA::Relation.new(@problem.solution_json)
-  end
-
   private
   def set_problem
     @problem = Problem.find_by!(slug: params[:id])
@@ -37,6 +32,7 @@ class ProblemsController < ApplicationController
   def problem_params
     params.require(:problem).permit(:name, :description, :solution, :solution_json,
       relations_attributes: [:id, :_destroy, :name, :problem_id,
-      relation_attributes_attributes: [:id, :_destroy, :name, :attr_type, :relation_id]])
+      relation_attributes_attributes: [:id, :_destroy, :name, :attr_type, :relation_id]],
+      test_cases_attributes: [:id, :_destroy, :name, :dataset, :problem_id])
   end
 end

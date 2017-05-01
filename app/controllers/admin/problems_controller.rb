@@ -1,6 +1,6 @@
 class Admin::ProblemsController < ProblemsController
   before_action :require_admin
-  before_action :set_problem, only: [:show, :edit, :update, :destroy, :approve, :unapprove]
+  before_action :set_problem, except: [:index]
 
   def index
     @problems = Problem.all
@@ -43,5 +43,11 @@ class Admin::ProblemsController < ProblemsController
       flash[:error] = @problem.errors.full_messages
     end
     redirect_to admin_problems_path
+  end
+
+  def generate_testcase
+    operator = TestcaseGenerator::Operator.new(@problem.solution_json, @problem.relations)
+    @problem.test_cases.create(dataset: operator.samples)
+    redirect_to edit_admin_problem_path(@problem)
   end
 end
