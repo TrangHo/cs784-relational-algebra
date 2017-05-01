@@ -10,7 +10,7 @@ module RA
 
       def initialize(attributes = {})
         attributes = HashWithIndifferentAccess.new(attributes)
-        self.left, self.relation_name = self.class.parse_left(attributes[:left])
+        self.left, self.relation_name = self.class.parse_left(attributes[:left], attributes[:relation_name])
         self.right = attributes[:right]
         self.type = attributes[:type]
       end
@@ -22,18 +22,19 @@ module RA
 
       private
       def self.recursive_parse(predicate_json)
+        relation_name = predicate_json[:relation_name]
         obj = klass_of(predicate_json[:type]).new(type: predicate_json[:type])
         if predicate_json[:left].is_a?(Hash)
-          obj.left = recursive_parse(predicate_json[:left])
+          obj.left = recursive_parse(predicate_json[:left].merge(relation_name: relation_name))
         else
-          obj.left, obj.relation_name = parse_left(predicate_json[:left])
+          obj.left, obj.relation_name = parse_left(predicate_json[:left], relation_name)
         end
-        obj.right = predicate_json[:right].is_a?(Hash) ? recursive_parse(predicate_json[:right]) : predicate_json[:right]
+        obj.right = predicate_json[:right].is_a?(Hash) ? recursive_parse(predicate_json[:right].merge(relation_name: relation_name)) : predicate_json[:right]
         obj
       end
 
-      def self.parse_left(left)
-        relation_name = nil
+      # if case 'select R.a == 1 (S)' => self.relation_name = R instead of S
+      def self.parse_left(left, relation_name)
         if left.is_a?(String) && left.match(/\./)
           relation_name, left = left.split('.')
         end

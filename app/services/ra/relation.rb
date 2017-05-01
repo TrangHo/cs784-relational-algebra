@@ -1,6 +1,6 @@
 module RA
   class Relation < Base
-    ATTRS = [:type, :name]
+    ATTRS = Base::ATTRS + [:name]
     attr_accessor *ATTRS
   end
 end

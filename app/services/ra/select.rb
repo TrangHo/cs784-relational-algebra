@@ -1,6 +1,6 @@
 module RA
   class Select < Base
-    ATTRS = [:type, :relation, :predicate]
+    ATTRS = Base::ATTRS + [:relation, :predicate]
     attr_accessor *ATTRS
   end
 end

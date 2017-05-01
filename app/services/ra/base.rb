@@ -11,7 +11,10 @@ module RA
       self.class::ATTRS.each do |attr|
         self.send("#{attr}=", attributes[attr])
       end
-      self.predicate = RA::Predicate::Base.parse(attributes[:predicate]) if attributes[:predicate].present?
+      if attributes[:predicate].present?
+        attributes[:predicate].update(relation_name: self.relation.name) if self.relation && self.relation.relation?
+        self.predicate = RA::Predicate::Base.parse(attributes[:predicate])
+      end
     end
 
     def self.parse(ra_exp_json)
@@ -20,11 +23,16 @@ module RA
       recursive_parse(ra_exp_json)
     end
 
+    def relation?
+      type == RELATION
+    end
+
     private
     def self.recursive_parse(ra_exp_json)
       relation = ra_exp_json.delete(:relation)
-      obj = klass_of(ra_exp_json[:type]).new(ra_exp_json)
-      obj.relation = recursive_parse(relation) if relation.present?
+      nested_relation = recursive_parse(relation) if relation.present?
+
+      obj = klass_of(ra_exp_json[:type]).new(ra_exp_json.merge(relation: nested_relation))
       obj
     end
 
