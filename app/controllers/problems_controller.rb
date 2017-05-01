@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController
-  before_action :set_problem, only: [:show]
+  before_action :set_problem, only: [:show, :test]
 
   def index
     @problems = Problem.approved
@@ -22,6 +22,10 @@ class ProblemsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def test
+    debugger
   end
 
   private
