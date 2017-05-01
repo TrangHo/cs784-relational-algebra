@@ -1,1 +1,16 @@
-h1 Success
+h1 Test Result
+- @result.each do |result|
+  .result
+    h3= "Result of test case id #{ result[:test_case_id] }"
+    .row
+      .col-sm-3 Dataset
+      .col-sm-9= result[:dataset]
+    .row
+      .col-sm-3 Expected Result
+      .col-sm-9= result[:base_ra_result]
+    .row
+      .col-sm-3 User Input Result
+      .col-sm-9= result[:user_ra_result]
+    .row
+      .col-sm-3 Correct
+      .col-sm-9= result[:correct]

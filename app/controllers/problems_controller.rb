@@ -25,7 +25,8 @@ class ProblemsController < ApplicationController
   end
 
   def test
-    debugger
+    tester = RA::Tester.new(@problem)
+    @result = tester.test(JSON(params[:code][:input_json]))
   end
 
   private
@@ -34,7 +35,7 @@ class ProblemsController < ApplicationController
   end
 
   def problem_params
-    params.require(:problem).permit(:name, :description, :solution, :solution_json, 
+    params.require(:problem).permit(:name, :description, :solution, :solution_json,
       relations_attributes: [:id, :_destroy, :name, :problem_id,
       relation_attributes_attributes: [:id, :_destroy, :name, :attr_type, :relation_id]],
       test_cases_attributes: [:id, :_destroy, :name, :dataset, :problem_id])
