@@ -10,6 +10,12 @@ module RA
                               self.right - Faker::Number.number(1).to_i
                             end
       end
+
+      def apply_to(dataset)
+        dataset.select do |tuple|
+          tuple[self.left] < self.right
+        end
+      end
     end
   end
 end

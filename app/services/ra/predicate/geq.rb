@@ -8,6 +8,12 @@ module RA
           Greater.new.set_value(sample, type)
         ].sample
       end
+
+      def apply_to(dataset)
+        dataset.select do |tuple|
+          tuple[self.left] >= self.right
+        end
+      end
     end
   end
 end

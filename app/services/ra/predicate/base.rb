@@ -20,6 +20,10 @@ module RA
         recursive_parse(predicate_json)
       end
 
+      def nested?
+        CONJUNCTION.include? self.type
+      end
+
       private
       def self.recursive_parse(predicate_json)
         relation_name = predicate_json[:relation_name]

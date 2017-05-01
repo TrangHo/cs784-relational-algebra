@@ -27,6 +27,14 @@ module RA
       type == RELATION
     end
 
+    def apply_to(dataset)
+      if self.relation.relation?
+        yield
+      else
+        recursive_apply_to(self.relation.apply_to(dataset))
+      end
+    end
+
     private
     def self.recursive_parse(ra_exp_json)
       relation = ra_exp_json.delete(:relation)
