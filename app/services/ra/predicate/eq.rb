@@ -8,7 +8,7 @@ module RA
 
       def apply_to(dataset)
         dataset.select do |tuple|
-          tuple[self.left] == self.right
+          tuple[self.left] == eval("#{ self.right }")
         end
       end
     end
