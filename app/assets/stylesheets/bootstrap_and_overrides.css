@@ -107,3 +107,8 @@ fieldset[disabled] .btn-static-default.active {
   color: #fff;
   background-color: #333;
 }
+
+/* Panel */
+.panel-default > .panel-heading {
+  background-color: #ccebff;
+}
