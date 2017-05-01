@@ -34,46 +34,5 @@ module TestcaseGenerator
       end
       result
     end
-
-    private
-    def recursive_unnest_predicates(ra_exp)
-      result = []
-      if ra_exp.relation.relation?
-        generator = generator_of(ra_exp)
-        result = generator.flattened_predicates
-      else
-        generator = generator_of(ra_exp)
-        predicates = generator.flattened_predicates
-        nested_predicates = recursive_unnest_predicates(ra_exp.relation)
-
-        if nested_predicates?(predicates)
-          predicates.each do |predicate|
-            if nested_predicates?(nested_predicates)
-              nested_predicates.each do |nested_predicate|
-                result << predicate + nested_predicate
-              end
-            else
-              result << predicate + nested_predicates
-            end
-          end
-        else
-          if nested_predicates?(nested_predicates)
-            nested_predicates.each do |nested_predicate|
-              result << predicates + nested_predicate
-            end
-          else
-            result = predicates + nested_predicates
-          end
-        end
-      end
-      result
-    end
-
-    def generator_of(ra_exp)
-      case ra_exp.type
-      when SELECT
-        TestcaseGenerator::Select.new(ra_exp)
-      end
-    end
   end
 end
