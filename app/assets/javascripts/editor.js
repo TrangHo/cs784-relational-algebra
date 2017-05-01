@@ -185,7 +185,7 @@ $(document).ready(function() {
  * - "ID.ID"
  */
 
-var raSyntaxCheck = function(textId) {
+var raSyntaxCheck = function(textId, destId) {
   var encodedStr = editor.getValue();
   var parser = new DOMParser;
   var dom = parser.parseFromString(
@@ -194,7 +194,7 @@ var raSyntaxCheck = function(textId) {
   var text = dom.body.textContent;
   try {
     var jsonText = ra.parse(text);
-    document.getElementById("solution_json").value = jsonText;
+    document.getElementById(destId).value = jsonText;
     return true;
   } catch (_error) {
     alert("Please fix syntax error before submission")

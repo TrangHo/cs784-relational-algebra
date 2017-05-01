@@ -45,7 +45,7 @@ h3 Solution
 
 .row.form-group
   .col-sm-12
-    = f.submit current_admin ? "Update" : "Submit for Review", class: 'btn btn-success', onclick: 'return raSyntaxCheck("code_body")'
+    = f.submit current_admin ? "Update" : "Submit for Review", class: 'btn btn-success', onclick: 'return raSyntaxCheck("code_body", "solution_json")'
 
 - if current_admin
   h1 Test Cases
