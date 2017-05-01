@@ -4,9 +4,10 @@ module RA
     RELATION_TYPES = [
       RELATION = 'ID',
       SELECT = 'select',
+      JOIN = 'join',
     ]
     UNARY_OPERATORS = [SELECT]
-    # BINARY_OPERATORS = [JOIN]
+    BINARY_OPERATORS = [JOIN]
     PREDICATE_TYPES = [
       EQ = '==',
       NEQ = '!=',

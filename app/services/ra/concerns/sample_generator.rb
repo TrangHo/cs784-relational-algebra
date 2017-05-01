@@ -1,6 +1,14 @@
-module TestcaseGenerator
+module RA
   module Concerns
-    module ValueGenerator
+    module SampleGenerator
+
+      def generate_sample(relation_attributes)
+        sample = {}
+        relation_attributes.each do |key, type|
+          sample[key] = generate_value_for(type)
+        end
+        sample
+      end
 
       def generate_value_for(type)
         case type

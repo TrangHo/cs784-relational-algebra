@@ -3,7 +3,7 @@ module RA
     class Base
       include RA::Constant
       include ActiveModel::AttributeMethods
-      include TestcaseGenerator::Concerns::ValueGenerator
+      include Concerns::SampleGenerator
 
       ATTRS = [:left, :right, :type, :relation_name]
       attr_accessor *ATTRS

@@ -15,7 +15,7 @@ class Admin::ProblemsController < ProblemsController
     @problem = Problem.find_by(slug: params[:id])
     if @problem.update_attributes(problem_params)
       flash[:success] = "Problem updated"
-      redirect_to problem_path(@problem.slug)
+      redirect_to admin_problems_path
     else
       render 'problems/edit'
     end
