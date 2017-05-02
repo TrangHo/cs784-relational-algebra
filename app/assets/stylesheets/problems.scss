@@ -1,4 +1,13 @@
 .problem-form {
+  input[type=submit] { margin-top: 15px; }
+  // .relations {
+  //   display: flex;
+  //   flex-flow: row wrap;
+  //   align-items: flex-start;
+  //   > .col-sm-4 {
+  //     flex-basis: 33%;
+  //   }
+  // }
   .relation, .relation-attribute {
     border-radius: 10px;
     border: 1px solid #ccc;
