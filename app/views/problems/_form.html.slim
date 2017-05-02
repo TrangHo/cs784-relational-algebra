@@ -47,7 +47,7 @@ h3 Solution
   .col-sm-12
     = f.submit current_admin ? "Update" : "Submit for Review", class: 'btn btn-success', onclick: 'return raSyntaxCheck("code_body", "solution_json")'
 
-- if current_admin
+- if current_admin and !@problem.name.nil?
   h1 Test Cases
   = link_to "Generate New Test Case", generate_testcase_admin_problem_path(@problem), method: :post, class: 'btn btn-success'
   .test-cases.form-group
