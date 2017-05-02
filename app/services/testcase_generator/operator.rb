@@ -21,7 +21,7 @@ module TestcaseGenerator
       result = {}
       result = @ra_exp.satisfied_samples
       @relations.each do |relation_name, relation_attributes|
-        rand(1..3).times do
+        rand(1..2).times do
           result.update(relation_name => []) if result[relation_name].nil?
           result[relation_name] << generate_sample(relation_attributes)
         end

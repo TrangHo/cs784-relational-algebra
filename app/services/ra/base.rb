@@ -3,7 +3,7 @@ module RA
     include Constant
     include ActiveModel::AttributeMethods
 
-    ATTRS = [:type, :attribute_relations, :relation_attributes]
+    ATTRS = [:type, :attribute_relations, :relation_attributes, :flattened_predicates]
     attr_accessor *ATTRS
 
     def initialize(attributes = {})
@@ -15,8 +15,8 @@ module RA
         if select? && self.relation && self.relation.relation?
           attributes[:predicate].update(relation_name: self.relation.name)
         end
-        self.predicate = RA::Predicate::Base.parse(attributes[:predicate])
-        @flattened_predicates = flatten_predicates(self.predicate)
+        self.predicate = RA::Predicate::Base.parse(attributes[:predicate], attributes[:type])
+        self.flattened_predicates = flatten_predicates(self.predicate)
       end
     end
 
@@ -48,9 +48,21 @@ module RA
       end
     end
 
+    def satisfied_samples
+      samples = {}
+      rand(1..3).times do
+        samples = update_satisfied_samples(samples)
+      end
+      samples
+    end
+
     private
     def self.recursive_parse(ra_exp_json)
       klass_of(ra_exp_json[:type], ra_exp_json[:predicate]).recursive_parse(ra_exp_json)
+    end
+
+    def update_satisfied_samples(samples)
+      ### Defined in subclasses
     end
 
     def self.klass_of(type, predicate = nil)

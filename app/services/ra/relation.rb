@@ -15,12 +15,8 @@ module RA
       end
     end
 
-    def satisfied_samples(no_samples = 1)
-      samples = []
-      no_samples.times do
-        samples << generate_sample(self.relation_attributes[self.name])
-      end
-      { self.name => samples}
+    def satisfied_samples
+      { self.name => [generate_sample(self.relation_attributes[self.name])]}
     end
 
     private
