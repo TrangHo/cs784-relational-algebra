@@ -1,0 +1,13 @@
+.test-results {
+  .result {
+    margin: 30px auto;
+    border-bottom: 3px solid #ccc;
+  }
+  .result:last-child {
+    border-bottom: none;
+  }
+  .fixed-height {
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+}
