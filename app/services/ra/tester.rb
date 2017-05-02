@@ -19,7 +19,7 @@ module RA
           dataset: test_case.dataset,
           base_ra_result: base_ra_result,
           user_ra_result: user_ra_result,
-          correct: (base_ra_result - user_ra_result).empty?
+          correct: (base_ra_result - user_ra_result).empty? and (user_ra_result - base_ra_result).empty?
         }
       end
       result
