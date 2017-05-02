@@ -5,57 +5,57 @@ h1 Test Result
     - count += 1
 
 h2= "#{count} / #{@result.size} passed"
-- count = 0
-- @result.each do |result|
-  - count += 1
-  .result
-    - if result[:correct]
-      h3
-        font color="green" = "Test Case #{count} ✔"
-    - else
-      h3
-        font color="red" = "Test Case #{count} ✘"
-    .row
-      h4 Dataset
-      - result[:dataset].each do |name, relation|
-        .panel.panel-default
-          .panel-heading= name
-          table.table.table-striped
-            thead
-              tr
-                - relation[0].each do |attr, value|
-                  th= attr
-            tbody
-              - relation.each do |tuple|
-                tr
-                  - tuple.each do |attr, value|
-                    td= value
+.problem-form
+  - @result.each_with_index do |result, index|
+    .result.col-sm-4
+      - if result[:correct]
+        h3
+          font color="green" = "Test Case #{index} ✔"
+      - else
+        h3
+          font color="red" = "Test Case #{index} ✘"
+      .fixed-height
+        .col-sm-12
+          h4 Dataset
+          - result[:dataset].each do |name, relation|
+            .panel.panel-default
+              .panel-heading= name
+              table.table.table-striped
+                thead
+                  tr
+                    - relation[0].each do |attr, value|
+                      th= attr
+                tbody
+                  - relation.each do |tuple|
+                    tr
+                      - tuple.each do |attr, value|
+                        td= value
 
-    .row
-      h4 Expected Result
-      table.table.table-striped
-        - result[:dataset].each do |name, relation|
+        .col-sm-12
+          h4 Expected Result
           table.table.table-striped
-            thead
-              tr
-                - relation[0].each do |attr, value|
-                  th= attr
-            tbody
-              - result[:base_ra_result].each do |tuple|
-                tr
-                  - tuple.each do |attr, value|
-                    td= value
-    .row
-      h4 User Input Result
-      table.table.table-striped
-        - result[:dataset].each do |name, relation|
+            - result[:dataset].each do |name, relation|
+              table.table.table-striped
+                thead
+                  tr
+                    - relation[0].each do |attr, value|
+                      th= attr
+                tbody
+                  - result[:base_ra_result].each do |tuple|
+                    tr
+                      - tuple.each do |attr, value|
+                        td= value
+        .col-sm-12
+          h4 User Input Result
           table.table.table-striped
-            thead
-              tr
-                - relation[0].each do |attr, value|
-                  th= attr
-            tbody
-              - result[:user_ra_result].each do |tuple|
-                tr
-                  - tuple.each do |attr, value|
-                    td= value
+            - result[:dataset].each do |name, relation|
+              table.table.table-striped
+                thead
+                  tr
+                    - relation[0].each do |attr, value|
+                      th= attr
+                tbody
+                  - result[:user_ra_result].each do |tuple|
+                    tr
+                      - tuple.each do |attr, value|
+                        td= value

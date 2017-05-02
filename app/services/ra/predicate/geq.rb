@@ -10,6 +10,7 @@ module RA
       end
 
       def apply_to(dataset)
+        dataset ||= []
         dataset.select do |tuple|
           tuple[self.left] >= self.right
         end

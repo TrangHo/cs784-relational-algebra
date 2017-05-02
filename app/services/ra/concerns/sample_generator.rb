@@ -13,7 +13,7 @@ module RA
       def generate_value_for(type)
         case type
         when RelationAttribute::VARCHAR_TYPE
-          Faker::Lorem.sentence
+          Faker::Lorem.word
         when RelationAttribute::DOUBLE_TYPE
           Faker::Number.decimal(2).to_f
         when RelationAttribute::INT_TYPE

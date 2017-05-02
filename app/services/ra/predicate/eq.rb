@@ -7,6 +7,7 @@ module RA
       end
 
       def apply_to(dataset)
+        dataset ||= []
         dataset.select do |tuple|
           tuple[self.left] == eval("#{ self.right }")
         end

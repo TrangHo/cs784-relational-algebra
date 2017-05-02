@@ -40,12 +40,9 @@ module RA
       type == JOIN
     end
 
+    ### Defined in subclasses
     def apply_to(dataset)
-      if select? && self.relation.relation?
-        yield
-      else
-        recursive_apply_to(self.relation.apply_to(dataset))
-      end
+      dataset
     end
 
     def satisfied_samples(max = 1)

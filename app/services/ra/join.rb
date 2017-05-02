@@ -7,19 +7,26 @@ module RA
     include Concerns::PredicateUtility
     extend Concerns::PredicateUtility
 
-    # Apply to basic case only. Eg: select a==1 (R). Not used for nested cases.
     def apply_to(dataset)
-      if self.relation.relation?
-        relation_name = self.relation.name
-        self.predicate.apply_to(dataset[relation_name])
-      else
-        recursive_apply_to(self.relation.apply_to(dataset))
-      end
+      l_dataset = self.left.relation? ? dataset[self.left.name] : self.left.apply_to(dataset)
+      r_dataset = self.right.relation? ? dataset[self.right.name] : self.right.apply_to(dataset)
+
+      apply_to_join(l_dataset, r_dataset)
     end
 
-    # Apply to nested case
-    def recursive_apply_to(dataset)
-      # self.predicate.apply_to(dataset)
+    def apply_to_join(l_dataset, r_dataset)
+      result = []
+      l_dataset.each do |l_tuple|
+        r_dataset.each do |r_tuple|
+          selected = true
+          self.flattened_predicates.each do |predicate|
+            selected = l_tuple[predicate.left] == r_tuple[predicate.right]
+            break unless selected
+          end
+          result << l_tuple.merge(r_tuple) if selected
+        end
+      end
+      result
     end
 
     def set_relation_attributes(relations)
