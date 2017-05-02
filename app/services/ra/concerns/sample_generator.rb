@@ -30,6 +30,16 @@ module RA
           RelationAttribute::VARCHAR_TYPE
         end
       end
+
+      def merge_satisfied_samples(samples_1, samples_2)
+        result = {}
+        (samples_1.keys + samples_2.keys).uniq.each do |relation_name|
+          samples_1_data = samples_1[relation_name] || []
+          samples_2_data = samples_2[relation_name] || []
+          result.update(relation_name => samples_1_data + samples_2_data)
+        end
+        result
+      end
     end
   end
 end
