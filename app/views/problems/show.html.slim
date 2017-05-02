@@ -23,12 +23,12 @@ h1= @problem.name
     p Please input your answer below
     = form_tag test_problem_path(@problem) do
       .btn-static-group aria-label="..." role="group"
-        button.btn-static.btn-static-default id="selection" data-toggle="tooltip" title="<h>Selection</h><br><b>&sigma;</b> a < b (A)<br><b>sigma</b> a < b (A)" &sigma;
-        button.btn-static.btn-static-default id="projection" data-toggle="tooltip" title="<h>Projection</h><br><b>&pi;</b> a, b (A)<br><b>pi</b> a, b (A)" &pi;
-        button.btn-static.btn-static-default id="join" data-toggle="tooltip" title="<h>Join</h><br>(A) <b>&#x22C8;</b> (B)<br>(A) <b>&#x22C8;</b> A.a == B.a (B)" &#x22C8;
-        button.btn-static.btn-static-default id="and" data-toggle="tooltip" title="<h>And</h><br>a < 10 <b>&and;</b> a > 5 <br> a < 10 <b>and</b> a > 5" &and;
-        button.btn-static.btn-static-default id="or" data-toggle="tooltip" title="<h>Or</h><br>a > 10 <b>&or;</b> a < 5 <br> a > 10 <b>or</b> a < 5" &or;
-        button.btn-static.btn-static-default id="not" data-toggle="tooltip" title="<h>Not</h><br> <b>&not;</b> (a < 10) <br> <b>not</b> (a < 10)" &not;
+        span.btn-static.btn-static-default id="selection" data-toggle="tooltip" title="<h>Selection</h><br><b>&sigma;</b> a < b (A)<br><b>sigma</b> a < b (A)" &sigma;
+        span.btn-static.btn-static-default id="projection" data-toggle="tooltip" title="<h>Projection</h><br><b>&pi;</b> a, b (A)<br><b>pi</b> a, b (A)" &pi;
+        span.btn-static.btn-static-default id="join" data-toggle="tooltip" title="<h>Join</h><br>(A) <b>&#x22C8;</b> (B)<br>(A) <b>&#x22C8;</b> A.a == B.a (B)" &#x22C8;
+        span.btn-static.btn-static-default id="and" data-toggle="tooltip" title="<h>And</h><br>a < 10 <b>&and;</b> a > 5 <br> a < 10 <b>and</b> a > 5" &and;
+        span.btn-static.btn-static-default id="or" data-toggle="tooltip" title="<h>Or</h><br>a > 10 <b>&or;</b> a < 5 <br> a > 10 <b>or</b> a < 5" &or;
+        span.btn-static.btn-static-default id="not" data-toggle="tooltip" title="<h>Not</h><br> <b>&not;</b> (a < 10) <br> <b>not</b> (a < 10)" &not;
 
       = text_area :code, :body
       = hidden_field :code, :input_json
