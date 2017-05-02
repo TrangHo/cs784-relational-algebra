@@ -36,42 +36,60 @@ module RA
     end
 
     def update_satisfied_samples(samples)
-      self.relation_attributes.each do |relation_name, attrs|
-        new_samples = samples[relation_name] || []
-        if nested_predicates?(@flattened_predicates)
-          @flattened_predicates.each do |predicates|
-            new_samples << satisfied_sample(predicates, relation_name)
-          end
-        else
-          new_samples << satisfied_sample(@flattened_predicates, relation_name)
+      if nested_predicates?(@flattened_predicates)
+        @flattened_predicates.each do |predicates|
+          samples = merge_satisfied_samples(samples, satisfied_sample(predicates))
         end
-        samples.update(relation_name => new_samples)
+      else
+        samples = merge_satisfied_samples(samples, satisfied_sample(@flattened_predicates))
       end
       samples
     end
 
-    def satisfied_sample(unnested_predicates, relation_name)
-      sample = self.relation.satisfied_samples[relation_name].sample
+    def satisfied_sample(unnested_predicates)
+      ### NOTE: This should generate a hash of tuples such that each relation
+      ###       has only 1 tuple
+      samples = self.relation.satisfied_samples
 
       unnested_predicates.each do |predicate|
-        flag = true
-        flag = false unless self.relation_attributes.has_key?(relation_name)
+        samples.keys.each do |relation_name|
+          sample = samples[relation_name].sample
 
-        if predicate.relation_name
-          flag = false unless predicate.relation_name == relation_name
-        else
-          ### NOTE: if predicates are ambivalent: same attribute name of different
-          ### relations but not clearly state, the value of satisfied predicate will
-          ### be set to all. Eg of ambivalent: select a == 1 (R join R.b = S.b S) and there
-          ### exists R.a, S.a => unambivalent: select R.a == 1 (R join R.b = S.b S)
-          flag = false unless self.attribute_relations[predicate.left].include?(relation_name)
+          flag = true
+          flag = false unless self.relation_attributes.has_key?(relation_name)
+
+          if predicate.relation_name
+            flag = false unless predicate.relation_name == relation_name
+          else
+            ### NOTE: if predicates are ambivalent: same attribute name of different
+            ### relations but not clearly state, the value of satisfied predicate will
+            ### be set to all. Eg of ambivalent: select a == 1 (R join R.b = S.b S) and there
+            ### exists R.a, S.a => unambivalent: select R.a == 1 (R join R.b = S.b S)
+            flag = false unless sample.keys.include?(predicate.left)
+          end
+
+          next unless flag
+
+          old_value = sample[predicate.left]
+          predicate.set_value(sample, self.relation_attributes[relation_name][predicate.left])
+
+          update_value_of_same_attr(samples, old_value, sample[predicate.left])
         end
-
-        next unless flag
-
-        predicate.set_value(sample, self.relation_attributes[relation_name][predicate.left])
       end
-      sample
+      samples
+    end
+
+    def update_value_of_same_attr(relation_samples, old_value, new_value)
+      relation_samples.each do |relation_name, samples|
+        samples.each do |sample|
+          sample.each do |attr, value|
+            if self.relation_attributes[relation_name][attr] == type_of_val(new_value) && value == old_value
+              sample.update(attr => new_value)
+            end
+          end
+        end
+        relation_samples.update(relation_name => samples)
+      end
     end
   end
 end

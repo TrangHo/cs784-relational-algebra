@@ -31,23 +31,23 @@ module RA
 
         if obj.is_a?(RA::Predicate::JoinEq)
           if predicate_json[:left].is_a?(Hash)
-            obj.left = recursive_parse(predicate_json[:left].merge(l_relation_name: relation_name))
+            obj.left = recursive_parse(predicate_json[:left].merge(l_relation_name: relation_name), operator)
           else
             obj.left, obj.l_relation_name = parse_left(predicate_json[:left], relation_name)
           end
 
           if predicate_json[:right].is_a?(Hash)
-            obj.right = recursive_parse(predicate_json[:right].merge(r_relation_name: relation_name))
+            obj.right = recursive_parse(predicate_json[:right].merge(r_relation_name: relation_name), operator)
           else
             obj.right, obj.r_relation_name = parse_left(predicate_json[:right], relation_name)
           end
         else
           if predicate_json[:left].is_a?(Hash)
-            obj.left = recursive_parse(predicate_json[:left].merge(relation_name: relation_name))
+            obj.left = recursive_parse(predicate_json[:left].merge(relation_name: relation_name), operator)
           else
             obj.left, obj.relation_name = parse_left(predicate_json[:left], relation_name)
           end
-          obj.right = predicate_json[:right].is_a?(Hash) ? recursive_parse(predicate_json[:right].merge(relation_name: relation_name)) : predicate_json[:right]
+          obj.right = predicate_json[:right].is_a?(Hash) ? recursive_parse(predicate_json[:right].merge(relation_name: relation_name), operator) : predicate_json[:right]
         end
         obj
       end

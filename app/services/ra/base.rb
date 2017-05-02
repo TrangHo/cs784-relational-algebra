@@ -48,9 +48,9 @@ module RA
       end
     end
 
-    def satisfied_samples
+    def satisfied_samples(max = 1)
       samples = {}
-      rand(1..3).times do
+      rand(1..max).times do
         samples = update_satisfied_samples(samples)
       end
       samples
@@ -58,21 +58,31 @@ module RA
 
     private
     def self.recursive_parse(ra_exp_json)
-      klass_of(ra_exp_json[:type], ra_exp_json[:predicate]).recursive_parse(ra_exp_json)
+      klass_of(ra_exp_json[:type]).recursive_parse(ra_exp_json)
     end
 
     def update_satisfied_samples(samples)
       ### Defined in subclasses
     end
 
-    def self.klass_of(type, predicate = nil)
+    def merge_satisfied_samples(samples_1, samples_2)
+      result = {}
+      (samples_1.keys + samples_2.keys).uniq.each do |relation_name|
+        samples_1_data = samples_1[relation_name] || []
+        samples_2_data = samples_2[relation_name] || []
+        result.update(relation_name => samples_1_data + samples_2_data)
+      end
+      result
+    end
+
+    def self.klass_of(type)
       case type
       when RELATION
         RA::Relation
       when SELECT
         RA::Select
       when JOIN
-        predicate ? RA::Join : RA::NaturalJoin
+        RA::Join
       end
     end
   end
